@@ -1,0 +1,87 @@
+
+#onglet
+{
+    font-size: 21px;
+    padding: 12px;
+    justify-content:center;
+    align-items:center;
+    color: white;
+}
+
+#navbar
+{
+   background-color: lightblue ;
+}
+
+h1
+{
+    padding: 3%;
+    margin: 6%;
+    
+    margin: 8px;
+}
+
+#button
+{
+  margin-bottom: 30px;
+  color: white;
+  background-color: lightblue;
+  
+}
+
+#form
+{
+    background-color: lightgray;
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%; 
+    border-radius: 9px;
+}
+
+#card{
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12px;
+  width: 60%; 
+}
+
+
+
+  
+  /* Style du formulaire */
+
+  .person-info, .country , .subject {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+  
+  .submit-bouton {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit-bouton:hover {
+    background-color: #45a049;
+  }
+
+  .formulaire {
+    border-radius: 5px;
+    background-color: lightgray;
+    padding: 10px;
+  }
+  
+  
+
+
+
+
+  
