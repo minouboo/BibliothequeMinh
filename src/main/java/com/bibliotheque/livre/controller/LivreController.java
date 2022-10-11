@@ -53,13 +53,11 @@ public class LivreController {
     //Creer un nouveau livre
     @GetMapping (value = "/newlivre")
     public String createLivreForm (Model model){
-
         model.addAttribute("something", "enregistrer un livre");
-
         //creer objet livre pour contenir les donnees livres du formulaire
         Livre livre = new Livre();
         model.addAttribute("livre", livre);
-        return "creationLivre";
+        return "creationlivre";
     }
 
     @PostMapping (value = "/livres")
@@ -91,10 +89,11 @@ public class LivreController {
         existingLivre.setIsbn(livre.getIsbn());
         existingLivre.setTitre(livre.getTitre());
         existingLivre.setAuteur(livre.getAuteur());
-        existingLivre.setEditeur_id(livre.getEditeur_id());
-        existingLivre.setGenre(livre.getGenre());
-        existingLivre.setLangue(livre.getLangue());
         existingLivre.setDescription(livre.getDescription());
+
+        /* existingLivre.setEditeur_id(livre.getEditeur_id());
+        existingLivre.setGenre(livre.getGenre());
+        existingLivre.setLangue(livre.getLangue()); */
 
         //sauvegarder l'objet livre
         livreService.updateLivre(existingLivre);

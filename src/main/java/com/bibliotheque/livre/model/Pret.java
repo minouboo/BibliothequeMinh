@@ -4,8 +4,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.util.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,5 +34,9 @@ public class Pret {
 
     @Column(columnDefinition = "boolean default true" ,name = "renouvele")
     private boolean renouvele;
+
+    @ManyToOne
+    @JoinColumn (name="user_id")
+    private User user ;
 
 }

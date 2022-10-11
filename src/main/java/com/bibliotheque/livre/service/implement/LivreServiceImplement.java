@@ -3,10 +3,9 @@ package com.bibliotheque.livre.service.implement;
 import com.bibliotheque.livre.data.LivreRepository;
 import com.bibliotheque.livre.model.Livre;
 import com.bibliotheque.livre.service.LivreService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -23,7 +22,7 @@ public class LivreServiceImplement implements LivreService {
     @Override
     public List<Livre> getAllLivres() {
         return livreRepository.findAll();
-    };
+    }
 
     // methode pour sauvegarder un livre
     @Override

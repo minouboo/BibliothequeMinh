@@ -26,7 +26,7 @@
                 <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/newlivre}">Ajouter un livre</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link"  href="Infouser.html">Information du compte</a>
+                <a class="nav-link" id="onglet" th:href = "@{/compte/listeuser}">Liste des utilisateurs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link"  href="creationcompte.html">Se déconnecter</a>
@@ -81,34 +81,4 @@
         <tbody/>
     </table>
 
-
-    <!--
-      <body>
-            <div >
-
-            <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
-            </div>
-
-
-            <div class="card" style="width: 18rem;" id="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${livre.titre}">Titre du livre</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush" th:each="livre:${livre}">
-                    <li class="list-group-item"th:text="${livre.auteur}">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item" th:text="${livre.auteur}">A third item</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-
-        </div>
-    </body> -->
 </html>

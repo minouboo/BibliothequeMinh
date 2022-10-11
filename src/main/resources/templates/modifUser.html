@@ -26,7 +26,7 @@
                     <a class="nav-link" id="onglet" th:href = "@{/compte/listeuser}">Liste des utilisateurs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" href="Infouser.html">Information du compte</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/compte/nouveaucompte}">Créer un compte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" href="creationcompte.html">Se déconnecter</a>
@@ -42,10 +42,11 @@
 <div class = "container">
     <div class = "row" >
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class = "text-center" th:text="${titre}"/>
+            <h1 class = "text-center" th:text="${titremodif}"/>
             <div class = "card-body">
 
-                <form th:action = "@{/compte/utilisateurs}" th:object = "${User}" method = "POST">
+                <!-- pour recuperer un id -->
+                <form th:action = "@{/compte/modifuser/{id} (id=${user.id})}" th:object = "${user}" method = "POST">
 
                     <div class = "form-group">
                         <label>Nom</label>
@@ -54,7 +55,7 @@
                                 type = "text"
                                 name = "nom"
                                 th:field = "*{nom}"
-                                placeholder="Entrer votre nom"
+                                placeholder="Votre nom"
                         />
                     </div>
                     <div class = "form-group">
@@ -64,17 +65,7 @@
                                 type = "text"
                                 name = "prenom"
                                 th:field = "*{prenom}"
-                                placeholder="Entrer votre prénom"
-                        />
-                    </div>
-                    <div class = "form-group">
-                        <label>Mot de passe</label>
-                        <input
-                                class = "form-control"
-                                type = "text"
-                                name = "mdp"
-                                th:field = "*{mdp}"
-                                placeholder="Entrer votre mot de passe"
+                                placeholder="Votre prénom"
                         />
                     </div>
                     <div class = "form-group">
@@ -84,17 +75,17 @@
                                 type = "text"
                                 name = "email"
                                 th:field = "*{email}"
-                                placeholder="Entrer votre email"
+                                placeholder="Votre email"
                         />
                     </div>
                     <div class = "form-group">
-                        <label>sel</label>
+                        <label>Mot de passe</label>
                         <input
                                 class = "form-control"
                                 type = "text"
-                                name = "sel"
-                                th:field = "*{sel}"
-                                placeholder="Entrer votre sel"
+                                name = "mdp"
+                                th:field = "*{mdp}"
+                                placeholder="Votre mot de passe"
                         />
                     </div>
 
