@@ -24,11 +24,11 @@ public class Pret {
     long id;
 
     @Basic
-    @Column(name = "date_debut")
+    @Column
     private Date date_debut;
 
     @Basic
-    @Column(name = "date_fin")
+    @Column
     private Date date_fin;
 
     @Column(columnDefinition = "boolean default true" ,name = "renouvele")

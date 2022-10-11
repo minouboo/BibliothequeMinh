@@ -1,86 +1,114 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-  
 
-    <head>
-        
-        <title>Bibliothèaue de Pontault-Combault</title>
-        <meta charset="utf-8"/>
-        <meta name="bibliothèque accueil" content="Réservation de livre à la bibliothèque de Pontault-Combault">
+<head>
+    <meta charset="UTF-8">
+    <title>Creation Livre</title>
+    <link href="../static/css/Layout.css" th:href="@{/css/stylesBibliotheque.css}" rel="stylesheet" />
 
-       
-        <link rel="stylesheet" href="../static/css/styles-bibliotheque.css" th:href="@{/css/stylesBibliotheque.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</head>
 
-    </head>
+        <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white " >
+      <div class="container-fluid">
+
+        <div class="collapse navbar-collapse " id="navbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <li class="nav-item active">
+              <a class="nav-link " aria-current="page"   href="Acceuil.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/liste}">Parcourir la bibliothèque</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/newlivre}">Ajouter un livre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="Infouser.html">Information du compte</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="creationcompte.html">Se déconnecter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
 
 
-    <body>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>    
 
 
-        <header>
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white " >
-              <div class="container-fluid">
-               
-                <div class="collapse navbar-collapse " id="navbar">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item active">
-                      <a class="nav-link " aria-current="page"   href="Acceuil.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link"  href="#">Parcourir la bibliothèque</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link"  href="#">Prêt en cours</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link"  href="Infouser.html">Information du compte</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link"  href="creationcompte.html">Se déconnecter</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-            <!-- Navbar -->
-          
-            <!-- Jumbotron -->
-            <div id="form">
 
-              <div class="input-group">
+
+    <h1 th:text="${something}"/>
+
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Edition</th>
+            <th scope="col">Langue</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Modification</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livre:${livre}">
+
+            <td th:text="${livre.id}"/>
+            <td th:text="${livre.titre}"/>
+            <td th:text="${livre.auteur}"/>
+            <td th:text="${livre.editeur_id}"/>
+            <td th:text="${livre.langue}"/>
+            <td th:text="${livre.genre}"/>
+            <td>
+                <!-- pour recuper l'id et ensuite modifier le livre -->
+                <a th:href="@{/bibliothequepc/livres/edit/{id}(id=${livre.id})}"
+                class = "btn btn-primary">Modifier</a>
+                <!-- pour supprimer-->
+                <a th:href="@{/bibliothequepc/livres/{id}(id=${livre.id})}"
+                   class = "btn btn-danger">Supprimer</a>
+            </td>
+
+
+        </tr>
+        <tbody/>
+    </table>
+
+
+    <!--
+      <body>
+            <div >
+
+            <div class="input-group">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
-              </div>
-
-
-              <div class="card" style="width: 18rem;" id="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Titre du livre</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">An item</li>
-                  <li class="list-group-item">A second item</li>
-                  <li class="list-group-item">A third item</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
-              </div>
-
             </div>
 
 
-        
-            
-            <!-- Jumbotron -->
-          </header>
-                 
-    </body>
+            <div class="card" style="width: 18rem;" id="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${livre.titre}">Titre du livre</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush" th:each="livre:${livre}">
+                    <li class="list-group-item"th:text="${livre.auteur}">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item" th:text="${livre.auteur}">A third item</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+
+        </div>
+    </body> -->
 </html>

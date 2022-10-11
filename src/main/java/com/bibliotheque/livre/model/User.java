@@ -21,26 +21,26 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
 
-    @Basic(optional = false)
-    @Column(name = "nom")
+    @Basic
+    @Column
     private String nom;
 
     @Basic
-    @Column(name = "prenom")
+    @Column
     private String prenom;
 
     @Basic
-    @Column(name = "email")
+    @Column
     private String email;
 
     @Basic
-    @Column(name = "mdp")
+    @Column
     private String mdp;
 
     @Basic
-    @Column(name = "sel")
+    @Column
     private String sel;
 
 }

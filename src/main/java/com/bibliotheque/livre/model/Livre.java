@@ -21,34 +21,110 @@ public class Livre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
 
     @Basic(optional = false)
-    @Column(name = "titre")
+    @Column
     private String titre;
 
     @Basic
-    @Column(name = "editeur_id")
+    @Column
     private String editeur_id;
 
     @Basic
-    @Column(name = "date_de_publication")
+    @Column
     private Date date_de_publication;
 
     @Basic
-    @Column(name = "description")
+    @Column (length = 3000)
     private String description;
 
     @Basic
-    @Column(name = "langue")
+    @Column
     private String langue;
 
     @Basic
-    @Column(name = "auteur")
+    @Column
     private String auteur;
 
     @Basic
-    @Column(name = "genre")
+    @Column
     private String genre;
 
+    @Basic
+    @Column
+    private String isbn;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getEditeur_id() {
+        return editeur_id;
+    }
+
+    public void setEditeur_id(String editeur_id) {
+        this.editeur_id = editeur_id;
+    }
+
+    public Date getDate_de_publication() {
+        return date_de_publication;
+    }
+
+    public void setDate_de_publication(Date date_de_publication) {
+        this.date_de_publication = date_de_publication;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLangue() {
+        return langue;
+    }
+
+    public void setLangue(String langue) {
+        this.langue = langue;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 }

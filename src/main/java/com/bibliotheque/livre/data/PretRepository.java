@@ -7,15 +7,16 @@ import com.bibliotheque.livre.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Repository
 public interface PretRepository extends JpaRepository<Pret, Long> {
 
-    List<Pret> findReservationsByAttenteTrue();
+   /* List<Pret> findReservationsByAttenteTrue();
 
     @Query("SELECT r \n" +
             "FROM Reservation r \n" +
@@ -36,5 +37,5 @@ public interface PretRepository extends JpaRepository<Pret, Long> {
 
     List<Pret> findReservationsByAlertedTrue() ;
 
-    List<Pret> findReservationsByAttenteFalseAndRenduFalse();
+    List<Pret> findReservationsByAttenteFalseAndRenduFalse(); */
 }
