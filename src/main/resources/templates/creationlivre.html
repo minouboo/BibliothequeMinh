@@ -17,19 +17,19 @@
         <div class="collapse navbar-collapse " id="navbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li class="nav-item active">
-                    <a class="nav-link " aria-current="page" id="onglet"  href="Acceuil.html">Home</a>
+                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/liste}">Parcourir la bibliothèque</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" href="#">Prêt en cours</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/newlivre}">Ajouter un livre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" href="Infouser.html">Information du compte</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/compte/listeuser}">Liste des utilisateurs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" href="creationcompte.html">Se déconnecter</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/compte/nouveaucompte}">Créer un compte</a>
                 </li>
             </ul>
         </div>
@@ -48,7 +48,7 @@
                         <form th:action = "@{/bibliothequepc/livres}" th:object = "${livre}" method = "POST">
 
                             <div class = "form-group">
-                                <label>isbn</label>
+                                <label>ISBN</label>
                                 <input
                                     class = "form-control"
                                     type = "text"
@@ -60,14 +60,34 @@
                             <div class = "form-group">
                                 <label>Titre</label>
                                 <input
-                                    class = "form-control"
-                                    type = "text"
-                                    name = "titre"
-                                    th:field = "*{titre}"
-                                    placeholder="Entrer le titre"
+                                        class = "form-control"
+                                        type = "text"
+                                        name = "titre"
+                                        th:field = "*{titre}"
+                                        placeholder="Entrer le titre"
                                 />
                             </div>
                             <div class = "form-group">
+                                <label>Date de Publication</label>
+                                <input
+                                    class = "form-control"
+                                    type = "text"
+                                    name = "dateDePublication"
+                                    th:field = "*{dateDePublication}"
+                                    placeholder="Entrer la date de publication"
+                                />
+                            </div>
+                            <div class = "form-group">
+                                <label>Langue</label>
+                                <input
+                                        class = "form-control"
+                                        type = "text"
+                                        name = "langue"
+                                        th:field = "*{langue}"
+                                        placeholder="Entrer la langue"
+                                />
+                            </div>
+                            <!-- <div class = "form-group">
                                 <label>auteur</label>
                                 <input
                                     class = "form-control"
@@ -75,16 +95,6 @@
                                     name = "auteur"
                                     th:field = "*{auteur}"
                                     placeholder="Entrer l'auteur"
-                                />
-                            </div>
-                            <div class = "form-group">
-                                <label>Langue</label>
-                                <input
-                                    class = "form-control"
-                                    type = "text"
-                                    name = "langue"
-                                    th:field = "*{langue}"
-                                    placeholder="Entrer la langue"
                                 />
                             </div>
                             <div class = "form-group">
@@ -117,7 +127,7 @@
                                     placeholder="Entrer la description"
                                 />
                             </div>
-                           <!--<div class = "form-group">
+                            <div class = "form-group">
                                 <label>Date de publication</label>
                                 <input
                                     class = "form-control"
@@ -137,6 +147,7 @@
                             </div>
 
                         </form>
+
                     </div>
             </div>
         </div>

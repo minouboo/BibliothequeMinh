@@ -47,34 +47,25 @@
               </div>
             </nav>
             <!-- Navbar -->
+        </header>
           
             <!-- Jumbotron -->
 
-            <div
-                class="p-5 text-center bg-image"
-                style="
-                background-image: url('https://www.larosiere.net/app/uploads/2020/08/Biblioth%C3%A8que.jpg');
-                height: 400px;
-                padding: 9;
-                "
-            >
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-                <div class="d-flex justify-content-center align-items-center h-100">
-                    <div class="text-white">
-                    <h1 class="mb-3">Bienvenu à la Bibliothèque de Pontault-Combault</h1>
-                    <h4 class="mb-3">C'est votre première visite?</h4>
-                    <a class="btn btn-outline-light btn-lg" href="#!" role="button" id="button">Je m'enregistre</a>
-                    </div>
-                </div>
-                </div>
-            </div>
+
+        <div>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <h1 th:inline="text">Hello from controller [[${username}]]!</h1>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        </div>
 
 
 
         
             
             <!-- Jumbotron -->
-          </header>
+
                  
     </body>
 </html>

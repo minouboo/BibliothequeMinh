@@ -15,11 +15,12 @@ import java.util.List;
 @Repository
 public interface LivreRepository extends JpaRepository <Livre,Long>{
 
+    /*
     @GetMapping(value="/search")
     @Query("SELECT l FROM Livre l WHERE lower(l.titre) like %:search% OR lower(l.auteur) like %:search% ")
     List<Livre> findLivresByFilters(@Param("search") String search);
 
-
+*/
 
 
 

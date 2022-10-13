@@ -41,6 +41,7 @@ public class LivreController {
         this.livreService = livreService;
     }
 
+
     //Avoir la liste des livres dans un tableau
     @GetMapping (value = "/liste")
     public String getLivre(Model model){
@@ -49,6 +50,7 @@ public class LivreController {
         model.addAttribute("livre", livreService.getAllLivres());
         return "parcourirbiblio";
     }
+
 
     //Creer un nouveau livre
     @GetMapping (value = "/newlivre")
@@ -65,6 +67,8 @@ public class LivreController {
         livreService.saveLivre(livre);
         return"redirect:/bibliothequepc/liste";
     }
+
+
 
 
     //Modifier les livres
@@ -88,27 +92,30 @@ public class LivreController {
         Livre existingLivre = livreService.getLivreById(id);
         existingLivre.setIsbn(livre.getIsbn());
         existingLivre.setTitre(livre.getTitre());
-        existingLivre.setAuteur(livre.getAuteur());
         existingLivre.setDescription(livre.getDescription());
-
-        /* existingLivre.setEditeur_id(livre.getEditeur_id());
         existingLivre.setGenre(livre.getGenre());
-        existingLivre.setLangue(livre.getLangue()); */
+        existingLivre.setLangue(livre.getLangue());
+        /*
+        existingLivre.setAuteur(livre.getAuteur());
+        existingLivre.setEditeur_id(livre.getEditeur_id()); */
 
         //sauvegarder l'objet livre
+
         livreService.updateLivre(existingLivre);
         System.out.println(livreService.updateLivre(existingLivre));
         return "redirect:/bibliothequepc/liste";
 
     }
 
-    // supprimer le livre
 
+    // supprimer le livre
     @GetMapping(value = "/livres/{id}")
     public String deleteLivre(@PathVariable long id){
         livreService.deleteLivreById(id);
         return "redirect:/bibliothequepc/liste";
     }
+
+
 
     /*
     @GetMapping(value="/get")

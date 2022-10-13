@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse " id="navbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
             <li class="nav-item active">
-              <a class="nav-link " aria-current="page"   href="Acceuil.html">Home</a>
+              <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/liste}">Parcourir la bibliothèque</a>
@@ -29,7 +29,7 @@
                 <a class="nav-link" id="onglet" th:href = "@{/compte/listeuser}">Liste des utilisateurs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link"  href="creationcompte.html">Se déconnecter</a>
+                <a class="nav-link" id="onglet" th:href = "@{/compte/nouveaucompte}">Créer un compte</a>
             </li>
           </ul>
         </div>
@@ -48,10 +48,12 @@
         <thead>
         <tr>
             <th scope="col">id</th>
+            <th scope="col">isbn</th>
             <th scope="col">Titre</th>
+            <th scope="col">Date de publication</th>
+            <th scope="col">Langue</th>
             <th scope="col">Auteur</th>
             <th scope="col">Edition</th>
-            <th scope="col">Langue</th>
             <th scope="col">Genre</th>
             <th scope="col">Modification</th>
 
@@ -62,11 +64,13 @@
         <tr th:each="livre:${livre}">
 
             <td th:text="${livre.id}"/>
+            <td th:text="${livre.isbn}"/>
             <td th:text="${livre.titre}"/>
-            <td th:text="${livre.auteur}"/>
-            <td th:text="${livre.editeur_id}"/>
+            <td th:text="${livre.dateDePublication}"/>
             <td th:text="${livre.langue}"/>
-            <td th:text="${livre.genre}"/>
+           <!-- <td th:text="${livre.auteur}"/>
+            <td th:text="${livre.editeur_id}"/>
+            <td th:text="${livre.genre}"/> -->
             <td>
                 <!-- pour recuper l'id et ensuite modifier le livre -->
                 <a th:href="@{/bibliothequepc/livres/edit/{id}(id=${livre.id})}"
@@ -79,6 +83,35 @@
 
         </tr>
         <tbody/>
+
+        <form th:action="@{/livres}">
+            <div class="search-container">
+                <form action="/action_page.php">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </form>
+
+
+        <form th:action="@{/livres}">
+            <div class="field columns search has-addons has-addons-centered">
+                <p class="control">
+                    <input name="search" class="input is-medium" type="text" placeholder="ex: Harry Potter">
+                </p>
+                <p class="control is-hidden-touch is-medium">
+                    <button class="button is-medium background-dark-blue">
+                        Rechercher
+                    </button>
+                </p>
+                <p class="control is-hidden-desktop is-medium">
+                    <button class="button is-medium background-dark-blue">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </p>
+            </div>
+        </form>
+
     </table>
 
 </html>

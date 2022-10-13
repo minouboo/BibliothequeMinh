@@ -17,19 +17,19 @@
         <div class="collapse navbar-collapse " id="navbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li class="nav-item active">
-                    <a class="nav-link " aria-current="page"   href="Acceuil.html">maison</a>
+                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/liste}">Parcourir la bibliothèque</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="onglet" th:href = "@{/bibliothequepc/newlivre}">Ajouter un livre</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/compte/listeuser}">Liste des utilisateurs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/compte/nouveaucompte}">Créer un compte</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="Infouser.html">Information du compte</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="creationcompte.html">Se déconnecter</a>
                 </li>
             </ul>
         </div>

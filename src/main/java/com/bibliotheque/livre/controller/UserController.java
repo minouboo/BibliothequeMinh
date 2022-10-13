@@ -57,7 +57,7 @@ public class UserController {
     @PostMapping(value="/utilisateurs")
     public String saveUser (@ModelAttribute ("User") User user){
         userService.saveUser(user);
-        System.out.println(user);
+        System.out.println(userService.saveUser(user));
         return "redirect:/compte/listeuser";
     }
 
@@ -98,27 +98,5 @@ public class UserController {
         return "redirect:/compte/listeuser";
     }
 
-
-
-    /*@GetMapping(value="/get")
-    public ResponseEntity<List<User>> getAllUser(){
-        List<User>users = new ArrayList<>();
-        userRepository.findAll().forEach(users::add);
-        log.info("la liste des utilisateurs est bel et bien renvoye");
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @SneakyThrows
-    @PostMapping(value="/post")
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        try {
-            userRepository.save(user);
-            log.info("le user a bel et bien été rajouté");
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
-        } catch (Exception e) {
-            log.warning("Le user n'a pas pu être rajouté");
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    } */
 
 }
