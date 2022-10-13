@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -29,7 +30,7 @@ public class Editeur {
     private String nom;
 
     @OneToMany (mappedBy = "editeur")
-    private List<Livre> livres = new ArrayList<>();
+    private Set<Livre> livres;
 
 }
 

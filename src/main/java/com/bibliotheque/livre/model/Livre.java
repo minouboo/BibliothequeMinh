@@ -4,9 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +20,11 @@ import java.util.List;
 public class Livre {
 
     @Id
-    @NonNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Basic
+    @Column(name = "isbn")
     private Long isbn; //isbn = numero d'identification d'un livre que l'on va renseigner nous même
 
     @Basic(optional = false) //Pour rendre un attribut null ou pas
@@ -33,24 +36,31 @@ public class Livre {
     private Date dateDePublication;
 
     @ManyToOne
-    @JoinColumn (name="editeur_nom")
+    @JoinColumn (name="editeur_id")
     private Editeur editeur;
 
-    @OneToMany(mappedBy = "langue")
-    private List<Langue> langues = new ArrayList<>();
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn (name="langue_id")
+    private Langue langue;
 
     @OneToOne
     @JoinColumn (name = "description_id")
     private Description description;
 
-    @ManyToOne
-    @JoinColumn (name="auteur_id")
-    private Auteur auteur;
+    @ManyToMany
+    @JoinTable(
+            name = "livre_auteur",
+            joinColumns = @JoinColumn (name = "auteur_id"),
+            inverseJoinColumns = @JoinColumn (name = "livre_id"))
+            private Set<Auteur> auteurs = new HashSet<>();
+
 
     @ManyToOne
-    @JoinColumn (name="genre_nom")
+    @JoinColumn (name="genre_id")
     private Genre genre;
 
+    @OneToMany (mappedBy = "livre")
+    private List<Exemplaire> exemplaires = new ArrayList<>();
 
 
 }

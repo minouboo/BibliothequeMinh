@@ -4,7 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -24,7 +24,12 @@ public class Exemplaire {
     private Long id;
 
     @ManyToOne
-    @JoinColumn (name="livre_isbn")
-    private Livre livres;
+    @JoinColumn (name="livre_id")
+    private Livre livre;
+
+    @OneToMany (mappedBy = "exemplaire")
+    private Set<Pret> prets;
+
+
 
 }

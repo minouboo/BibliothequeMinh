@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,9 +26,8 @@ public class Langue {
     @Column
     private String nom;
 
-    @ManyToOne
-    @JoinColumn (name="langue")
-    private Langue langue;
+    @OneToMany (mappedBy = "langue")
+    private Set<Livre> livres;
 
 }
 

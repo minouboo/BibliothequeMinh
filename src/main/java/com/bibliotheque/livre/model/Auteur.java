@@ -25,10 +25,7 @@ public class Auteur {
     private Long id;
 
     @Basic
-    @Column
     private String Nom;
 
-    @OneToMany (mappedBy = "auteur")
-    private List<Livre> livres = new ArrayList<>();
 
 }

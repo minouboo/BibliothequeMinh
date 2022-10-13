@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +30,5 @@ public class Genre {
     private String Nom;
 
     @OneToMany (mappedBy = "genre")
-    private List<Livre> livres = new ArrayList<>();
+    private Set<Livre> livres;
 }

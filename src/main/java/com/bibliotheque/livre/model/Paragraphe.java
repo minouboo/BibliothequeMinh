@@ -18,6 +18,11 @@ import javax.persistence.*;
 public class Paragraphe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Basic
+    @Column
     private Integer ordre;
 
     @Basic

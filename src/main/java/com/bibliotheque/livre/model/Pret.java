@@ -22,7 +22,7 @@ public class Pret {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private Long id;
 
     @Basic
     @Column
@@ -32,11 +32,18 @@ public class Pret {
     @Column
     private Date date_fin;
 
-    @Column(columnDefinition = "boolean default true" ,name = "renouvele")
-    private boolean renouvele;
+    @Column(columnDefinition = "boolean default false" ,name = "renouvele")
+    private Boolean renouvele = false;
 
     @ManyToOne
     @JoinColumn (name="user_id")
     private User user ;
+
+    @ManyToOne
+    @JoinColumn (name="exemplaire_id")
+    private Exemplaire exemplaire ;
+
+
+
 
 }

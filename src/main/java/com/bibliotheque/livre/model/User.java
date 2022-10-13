@@ -4,8 +4,11 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,13 +18,21 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "user", indexes = {@Index(columnList = "username")})
 
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 508734724117189627L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
+
+    @Basic
+    @Column (name = "username", unique = true)
+    private String username;
 
     @Basic
     @Column
@@ -39,12 +50,22 @@ public class User {
     @Column
     private String mdp;
 
-    @Basic
-    @Column
-    private String sel;
-
     @OneToMany (mappedBy = "user")
     private List<Pret> prets = new ArrayList<>();
+
+
+
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "user_role")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Set<Role> roles=new HashSet<>();
+
+    @Column(name = "enabled")
+    private Boolean isEnabled = true;
+
+
+
 
     public Long getId() {
         return id;
@@ -52,6 +73,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNom() {
@@ -86,11 +115,27 @@ public class User {
         this.mdp = mdp;
     }
 
-    public String getSel() {
-        return sel;
+    public List<Pret> getPrets() {
+        return prets;
     }
 
-    public void setSel(String sel) {
-        this.sel = sel;
+    public void setPrets(List<Pret> prets) {
+        this.prets = prets;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 }
