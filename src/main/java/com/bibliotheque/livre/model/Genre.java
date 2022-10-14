@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "genre")
+@Table(name = "genre", indexes = {@Index(columnList = "nom")})
 
 public class Genre {
 

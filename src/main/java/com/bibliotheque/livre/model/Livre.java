@@ -5,7 +5,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.*;
 
 @AllArgsConstructor
@@ -34,7 +33,7 @@ public class Livre {
 
     @DateTimeFormat (pattern = "yyyy-MM-dd")
     @Column(name = "date_de_publication")
-    private Date dateDePublication;
+    private Date dateDePublication = new Date();
 
     @ManyToOne
     @JoinColumn (name="editeur_id")

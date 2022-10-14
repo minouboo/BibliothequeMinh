@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -16,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "langue", indexes = {@Index(columnList = "nom")})
 
-public class Langue {
+public class Langue implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

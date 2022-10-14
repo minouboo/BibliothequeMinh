@@ -18,4 +18,9 @@ public class AuteurServiceImplement implements AuteurService {
     public List<Auteur> getAllAuteur() {
         return auteurRepository.findAll();
     }
+
+    @Override
+    public Auteur saveAuteur(Auteur auteur) {
+        return auteurRepository.save(auteur);
+    }
 }

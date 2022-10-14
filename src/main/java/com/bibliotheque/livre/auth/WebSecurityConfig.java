@@ -25,7 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/"
                         ,"/home"
-//                        ,"/compte/nouveaucompte"
+                        ,"/test"
+                        ,"/compte/nouveaucompte"
 //                        ,"/compte/utilisateurs"
 //                        ,"/adminlivre/liste"
 //                        ,"/adminlivre/newlivre"

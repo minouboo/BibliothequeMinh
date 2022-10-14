@@ -39,7 +39,7 @@
             <div class = "card-body">
 
                 <!-- pour recuperer un id -->
-                <form th:action = "@{/bibliothequepc/livres/{id} (id=${livre.id})}" th:object = "${livre}" method = "POST">
+                <form th:action = "@{/admin/livres/{id} (id=${livre.id})}" th:object = "${livre}" method = "POST">
 
                     <div class = "form-group">
                         <label>isbn</label>

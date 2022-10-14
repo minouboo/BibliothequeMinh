@@ -8,4 +8,6 @@ public interface GenreService {
 
     List<Genre>getAllGenre();
 
+    Genre saveGenre(Genre genre);
+
 }

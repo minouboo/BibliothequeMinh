@@ -1,6 +1,6 @@
 package com.bibliotheque.livre.controller;
 
-import com.bibliotheque.livre.model.Livre;
+import com.bibliotheque.livre.model.*;
 
 import com.bibliotheque.livre.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class AdminController {
         model.addAttribute("editeur", editeurService.getAllEditeur());
         model.addAttribute("genre", genreService.getAllGenre());
         //ajout de l'attribut auteur en liste
-        model.addAttribute("auteur", auteurService.getAllAuteur());
+        //model.addAttribute("auteur", auteurService.getAllAuteur());
         //creer objet livre pour contenir les donnees livres du formulaire
         Livre livre = new Livre();
         model.addAttribute("livre", livre);
@@ -84,10 +84,8 @@ public class AdminController {
     @PostMapping (value = "/livres")
     public String saveLivre(@ModelAttribute("livre") Livre livre) {
         livreService.saveLivre(livre);
-        return"redirect:/adminlivre/liste";
+        return"redirect:admin/livre";
     }
-
-
 
 
     //Modifier les livres
@@ -132,6 +130,71 @@ public class AdminController {
     public String deleteLivre(@PathVariable long id){
         livreService.deleteLivreById(id);
         return "redirect:/adminlivre/liste";
+    }
+
+
+    //Creer une nouvelle langue
+    @GetMapping (value = "/newlangue")
+    public String createLangueForm (Model model){
+        model.addAttribute("titre", "Ajouter une nouvelle langue");
+        //creer objet livre pour contenir les donnees livres du formulaire
+        Langue langue = new Langue();
+        model.addAttribute("langue", langue);
+        return "admincreationlangue";
+    }
+
+    @PostMapping (value = "/langues")
+    public String saveLangue(@ModelAttribute("langue") Langue langue) {
+        langueService.saveLangue(langue);
+        return"redirect:/admin/liste";
+    }
+
+    //Creer une nouvelle langue
+    @GetMapping (value = "/newediteur")
+    public String createEditeurForm (Model model){
+        model.addAttribute("titre", "Ajouter un nouveau Éditeur");
+        //creer objet livre pour contenir les donnees livres du formulaire
+        Editeur editeur = new Editeur();
+        model.addAttribute("editeur", editeur);
+        return "admincreationediteur";
+    }
+
+    @PostMapping (value = "/editeurs")
+    public String saveEditeur(@ModelAttribute("editeur") Editeur editeur) {
+        editeurService.saveEditeur(editeur);
+        return"redirect:/admin/liste";
+    }
+
+    //Creer un nouveau genre
+    @GetMapping (value = "/newgenre")
+    public String createGenreForm (Model model){
+        model.addAttribute("titre", "Ajouter un nouveau genre");
+        //creer objet livre pour contenir les donnees livres du formulaire
+        Genre genre = new Genre();
+        model.addAttribute("genre", genre);
+        return "admincreationgenre";
+    }
+
+    @PostMapping (value = "/genres")
+    public String saveGenre(@ModelAttribute("genre") Genre genre) {
+        genreService.saveGenre(genre);
+        return"redirect:/admin/liste";
+    }
+
+    //Creer un nouvel auteur
+    @GetMapping (value = "/newauteur")
+    public String createAuteurForm (Model model){
+        model.addAttribute("titre", "Ajouter un nouvel auteur");
+        //creer objet livre pour contenir les donnees livres du formulaire
+        Auteur auteur = new Auteur();
+        model.addAttribute("auteur", auteur);
+        return "admincreationauteur";
+    }
+
+    @PostMapping (value = "/auteurs")
+    public String saveAuteur(@ModelAttribute("auteur") Auteur auteur) {
+        auteurService.saveAuteur(auteur);
+        return"redirect:/admin/liste";
     }
 
 

@@ -23,13 +23,31 @@
         <div class="collapse navbar-collapse " id="navbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" th:href = "@{/compte/liste}">Parcourir la bibliothèque</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/admin/liste}">Parcourir la bibliothèque</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Consulter mes prêts</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Modifier mon profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" th:href = "@{/adminlivre/newlivre}">Ajouter un livre</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/admin/newlivre}">Ajouter un livre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" th:href = "@{/admincompte/listeuser}">Liste des utilisateurs</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/admin/listeuser}">Liste des utilisateurs</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newlangue}">Ajouter une langue</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"  th:href = "@{/admin/newediteur}">Ajouter un éditeur</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newgenre}">Ajouter un genre</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newauteur}">Ajouter un auteur</a>
                 </li>
             </ul>
         </div>
@@ -85,13 +103,13 @@
             <td>
 
                 <!-- pour recuper l'id et ensuite modifier le livre -->
-                <!--<a th:href="@{/adminlivre/livres/edit/{id}(id=${livre.id})}"
+               <!-- <a th:href="@{/adminlivre/livres/edit/{id}(id=${livre.id})}"
                 class = "btn btn-primary"
                 sec:authorize="hasRole('ROLE_ADMIN")
                 >Modifier</a> -->
 
                 <!-- pour supprimer-->
-                <!--<a th:href="@{/adminlivre/livres/{id}(id=${livre.id})}"
+                <!-- <a th:href="@{/adminlivre/livres/{id}(id=${livre.id})}"
                    class = "btn btn-danger"
                    sec:authorize="hasRole('ROLE_ADMIN")
                 >Supprimer</a> -->

@@ -55,7 +55,7 @@ public class UserController {
         user.setMdp(passwordEncoder.encode(user.getMdp()));
         userService.saveUser(user);
         System.out.println(userService.saveUser(user));
-        return "redirect:/compte/user/{id}";
+        return "redirect:/compte/liste";
     }
 
 
@@ -113,7 +113,7 @@ public class UserController {
 
         model.addAttribute("titremodif", "Modifier le compte");
         model.addAttribute("user", userService.getUserById(id));
-        return "useraccueil";
+        return "adminaccueil";
     }
 
 

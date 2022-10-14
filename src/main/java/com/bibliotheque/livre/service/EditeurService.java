@@ -8,4 +8,6 @@ public interface EditeurService {
 
     List<Editeur>getAllEditeur();
 
+    Editeur saveEditeur(Editeur editeur);
+
 }

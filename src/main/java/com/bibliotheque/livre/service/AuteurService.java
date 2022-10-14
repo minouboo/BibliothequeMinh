@@ -8,4 +8,6 @@ public interface AuteurService {
 
     List<Auteur> getAllAuteur();
 
+    Auteur saveAuteur (Auteur auteur);
+
 }

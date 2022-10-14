@@ -18,4 +18,9 @@ public class EditeurServiceImplement implements EditeurService {
     public List<Editeur> getAllEditeur() {
         return editeurRepository.findAll();
     }
+
+    @Override
+    public Editeur saveEditeur(Editeur editeur) {
+        return editeurRepository.save(editeur);
+    }
 }

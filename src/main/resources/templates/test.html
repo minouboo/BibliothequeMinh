@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Creation Livre</title>
+  <link href="../static/css/Layout.css" th:href="@{/css/stylesBibliotheque.css}" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</head>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white " >
+  <div class="container-fluid">
+
+    <div class="collapse navbar-collapse " id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item active">
+          <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="onglet" th:href = "@{/admin/liste}">Parcourir la bibliothèque</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="onglet" th:href = "@{/admin/newlivre}">Ajouter un livre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="onglet" th:href = "@{/admin/listeuser}">Liste des utilisateurs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="onglet" th:href = "@{/compte/nouveaucompte}">Créer un compte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="onglet" th:href = "@{/hello}">Me connecter</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newlangue}">Ajouter une langue</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link " id="onglet" aria-current="page"  th:href = "@{/admin/newediteur}">Ajouter un éditeur</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newgenre}">Ajouter un genre</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Liste des prêts</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+
+
+
+<div
+        class="p-5 text-center bg-image"
+        style="
+                    background-image: url('https://www.larosiere.net/app/uploads/2020/08/Biblioth%C3%A8que.jpg');
+                    height: 400px;
+                    padding: 9;
+                    "
+>
+  <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="text-white">
+        <h1 class="mb-3">Bienvenu à la Bibliothèque de Pontault-Combault</h1>
+        <h4 class="mb-3">C'est votre première visite?</h4>
+        <a th:href = "@{/compte/nouveaucompte}"
+           class = "btn btn-primary">Je créer mon compte</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+
+
+</html>
