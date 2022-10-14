@@ -55,7 +55,7 @@ public class PretController {
 
 	public String rendre(Exemplaire exemplaire) {
 		Pret pre=new Pret();
-		pre.setDate_fin(new Date());
+		//pre.setDate_fin(new Date());
 		
 		return null;
 
