@@ -1,8 +1,12 @@
 package com.bibliotheque.livre.controller;
 
+import com.bibliotheque.livre.form.LivreForm;
 import com.bibliotheque.livre.model.*;
 
 import com.bibliotheque.livre.service.*;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -76,14 +80,20 @@ public class AdminController {
         //ajout de l'attribut auteur en liste
         //model.addAttribute("auteur", auteurService.getAllAuteur());
         //creer objet livre pour contenir les donnees livres du formulaire
-        Livre livre = new Livre();
+        LivreForm livre = new LivreForm();
         model.addAttribute("livre", livre);
         return "admincreationlivre";
     }
 
     @PostMapping (value = "/livres")
-    public String saveLivre(@ModelAttribute("livre") Livre livre) {
-        livreService.saveLivre(livre);
+    public String saveLivre( @Valid @ModelAttribute("livre") LivreForm livre) {
+    	Livre l = new Livre();
+    	l.setIsbn(livre.getIsbn());
+    	l.setTitre(livre.getTitre());
+    	Langue langue= langueService.findById(livre.getLangueId());
+    	
+    	l.setLangue(langue);
+        livreService.saveLivre(l);
         return"redirect:admin/livre";
     }
 

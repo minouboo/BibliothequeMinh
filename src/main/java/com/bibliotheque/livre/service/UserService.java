@@ -22,4 +22,6 @@ public interface UserService {
     //pour supprimer un user
     void deleteUserById (long id);
 
+	User getCurrentUser();
+
 }

@@ -1,12 +1,15 @@
 package com.bibliotheque.livre.service.implement;
 
+import java.util.List;
+
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
 import com.bibliotheque.livre.data.UserRepository;
 import com.bibliotheque.livre.model.User;
 import com.bibliotheque.livre.service.UserService;
-
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -46,6 +49,17 @@ public class UserServiceImplement implements UserService {
     @Override
     public void deleteUserById(long id) {
         userRepository.deleteById(id);
+    }
+    
+    @Override
+    public User getCurrentUser() {
+    	
+    	Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    		return this.userRepository.findByUsername(authentication.getName()).orElse(null);
+    	}
+    	
+    	return null;
     }
 
 }

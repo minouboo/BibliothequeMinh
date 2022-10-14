@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         ,"/home"
                         ,"/test"
                         ,"/compte/nouveaucompte"
-//                        ,"/compte/utilisateurs"
+                       ,"/compte/utilisateurs"
 //                        ,"/adminlivre/liste"
 //                        ,"/adminlivre/newlivre"
 //                        ,"/adminlivre/livres"

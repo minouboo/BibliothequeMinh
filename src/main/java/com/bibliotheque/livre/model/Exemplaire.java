@@ -22,10 +22,14 @@ public class Exemplaire {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @Column
+    private String codeBare;
 
     @ManyToOne
     @JoinColumn (name="livre_id")
     private Livre livre;
+    
 
     @OneToMany (mappedBy = "exemplaire")
     private Set<Pret> prets;
