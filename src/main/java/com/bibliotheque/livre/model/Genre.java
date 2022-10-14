@@ -26,8 +26,8 @@ public class Genre {
     private Long id;
 
     @Basic
-    @Column
-    private String Nom;
+    @Column (unique = true)
+    private String nom;
 
     @OneToMany (mappedBy = "genre")
     private Set<Livre> livres;

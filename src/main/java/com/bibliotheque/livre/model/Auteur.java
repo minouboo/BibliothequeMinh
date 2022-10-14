@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "auteur")
+@Table(name = "auteur",  indexes = {@Index(columnList = "nom")})
 
 public class Auteur {
 
@@ -25,7 +25,7 @@ public class Auteur {
     private Long id;
 
     @Basic
-    private String Nom;
+    private String nom;
 
 
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "langue")
+@Table(name = "langue", indexes = {@Index(columnList = "nom")})
 
 public class Langue {
 
@@ -23,11 +23,9 @@ public class Langue {
     private Long id;
 
     @Basic
-    @Column
+    @Column (unique = true)
     private String nom;
 
-    @OneToMany (mappedBy = "langue")
-    private Set<Livre> livres;
 
 }
 

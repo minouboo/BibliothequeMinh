@@ -17,7 +17,10 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "editeur")
+@Table(name = "editeur", indexes = {@Index(columnList = "nom")})
+
+//{@Index(columnList = "nom"),{@Index(columnList = "prenom")}} pour indexer une recherche simple
+//{@Index(columnList = "nom", "prenom)} pour indexer nom et prenom en meme temps
 
 public class Editeur {
 
@@ -26,7 +29,7 @@ public class Editeur {
     private Long id;
 
     @Basic
-    @Column
+    @Column (unique = true)
     private String nom;
 
     @OneToMany (mappedBy = "editeur")
