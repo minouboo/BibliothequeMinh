@@ -2,6 +2,7 @@ package com.bibliotheque.livre.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -15,7 +16,7 @@ import java.util.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "livre")
+@Table(name = "livre", indexes = {@Index(columnList = "titre"), @Index(columnList = "isbn")})
 
 public class Livre {
 
@@ -24,14 +25,14 @@ public class Livre {
     private Long id;
 
     @Basic
-    @Column(name = "isbn")
+    @Column(name = "isbn", unique = true)
     private Long isbn; //isbn = numero d'identification d'un livre que l'on va renseigner nous même
 
     @Basic(optional = false) //Pour rendre un attribut null ou pas
     @Column
     private String titre;
 
-    @Basic
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
     @Column(name = "date_de_publication")
     private Date dateDePublication;
 
@@ -39,7 +40,7 @@ public class Livre {
     @JoinColumn (name="editeur_id")
     private Editeur editeur;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn (name="langue_id")
     private Langue langue;
 

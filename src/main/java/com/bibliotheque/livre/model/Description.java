@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "description")
+@Table(name = "description",  indexes = {@Index(columnList = "titre")})
 
 public class Description {
 

@@ -25,12 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/"
                         ,"/home"
-                        , "/compte/nouveaucompte"
-                        ,"/compte/utilisateurs"
-                        ,"/bibliothequepc/liste"
-                        ,"/bibliothequepc/newlivre"
-                        ,"/bibliothequepc/livres"
-                ).permitAll()
+//                        ,"/compte/nouveaucompte"
+//                        ,"/compte/utilisateurs"
+//                        ,"/adminlivre/liste"
+//                        ,"/adminlivre/newlivre"
+//                        ,"/adminlivre/livres"
+//                        ,"adminlivre/livres/edit/{id}"
+                ).permitAll().antMatchers("admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .permitAll().and().logout().permitAll();

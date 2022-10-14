@@ -18,6 +18,7 @@ public interface UserService {
     //pour modifier un user
     User updateUser(User user);
 
+
     //pour supprimer un user
     void deleteUserById (long id);
 

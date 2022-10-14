@@ -1,25 +1,19 @@
 package com.bibliotheque.livre.controller;
 
 import com.bibliotheque.livre.model.User;
-import com.bibliotheque.livre.data.UserRepository;
 
+import com.bibliotheque.livre.service.LivreService;
 import com.bibliotheque.livre.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
 import lombok.extern.java.Log;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Log
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -28,37 +22,40 @@ import java.util.List;
 @RequestMapping(value="compte") // This means URL's start with /demo (after Application path)
 
 public class UserController {
-    @Autowired
+
     private UserService userService;
+    private LivreService livreService;
 
-    public UserController (UserService userService){
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserController(UserService userService, LivreService livreService, PasswordEncoder passwordEncoder){
         this.userService = userService;
+        this.livreService = livreService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    //Avoir la liste des livres dans un tableau
-    @GetMapping (value = "/listeuser")
-    public String getUser(Model model){
 
-        log.info("direction page de liste users");
-        model.addAttribute("user", userService.getAllUser());
-        return "listeusers";
-    }
 
 
     //Creer un nouveau user
+
     @GetMapping (value = "/nouveaucompte")
     public String createUserForm (Model model) {
-        model.addAttribute("titre", "Creation d'un Compte utilisateur");
+        model.addAttribute("titre", "Creation de votre compte");
         //creer objet user pour contenir les donnees user du formulaire
         User user = new User ();
         model.addAttribute("User", user);
         return "creationcompte";
     }
+
     @PostMapping(value="/utilisateurs")
     public String saveUser (@ModelAttribute ("User") User user){
+        //encoder le mot de passe
+        user.setMdp(passwordEncoder.encode(user.getMdp()));
         userService.saveUser(user);
         System.out.println(userService.saveUser(user));
-        return "redirect:/compte/listeuser";
+        return "redirect:/compte/user/{id}";
     }
 
 
@@ -69,7 +66,7 @@ public class UserController {
 
         model.addAttribute("titremodif", "Modifier le compte");
         model.addAttribute("user", userService.getUserById(id));
-        return "modifUser";
+        return "usermodif";
     }
 
     @PostMapping(value = "/modifuser/{id}")
@@ -96,6 +93,27 @@ public class UserController {
     public String deleteUser(@PathVariable long id){
         userService.deleteUserById(id);
         return "redirect:/compte/listeuser";
+    }
+
+
+    //Avoir la liste des livres dans un tableau
+    @GetMapping (value = "/liste")
+    public String getLivre(Model model){
+        model.addAttribute("something", "Pour connaitre les livres");
+        log.info("direction page de liste de livre");
+        model.addAttribute("livre", livreService.getAllLivres());
+        return "adminaccueil";
+    }
+
+
+    //recevoir les données d'un user
+    @GetMapping(value = "/user/{id}")
+
+    public String userForm(@PathVariable Long id, Model model){
+
+        model.addAttribute("titremodif", "Modifier le compte");
+        model.addAttribute("user", userService.getUserById(id));
+        return "useraccueil";
     }
 
 

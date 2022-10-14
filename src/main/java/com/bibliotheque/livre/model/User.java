@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "user", indexes = {@Index(columnList = "username")})
+@Table(name = "user", indexes = {@Index(columnList = "username"), @Index(columnList = "email")})
 
 public class User implements Serializable {
 
@@ -43,7 +43,7 @@ public class User implements Serializable {
     private String prenom;
 
     @Basic
-    @Column
+    @Column (unique = true)
     private String email;
 
     @Basic
@@ -55,7 +55,7 @@ public class User implements Serializable {
 
 
 
-    @ElementCollection(targetClass = Role.class)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role")
     @Enumerated(EnumType.STRING)
     @Column(name = "role")

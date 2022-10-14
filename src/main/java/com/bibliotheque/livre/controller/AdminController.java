@@ -1,13 +1,10 @@
 package com.bibliotheque.livre.controller;
 
 import com.bibliotheque.livre.model.Livre;
-import com.bibliotheque.livre.data.LivreRepository;
 
-import com.bibliotheque.livre.service.LivreService;
-import com.bibliotheque.livre.service.implement.LivreServiceImplement;
-import lombok.SneakyThrows;
+import com.bibliotheque.livre.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,29 +13,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import lombok.extern.java.Log;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 @Log
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 /*@AllArgsConstructor*/
+@PreAuthorize("hasRole('ADMIN')")
 @Controller
-@RequestMapping(value="bibliothequepc") // This means URL's start with /demo (after Application path)
+@RequestMapping(value="admin") // This means URL's start with /demo (after Application path)
 
-public class LivreController {
+public class AdminController {
+
+
+
+    private LivreService livreService;
+    private LangueService langueService;
+    private AuteurService auteurService;
+    private EditeurService editeurService;
+    private GenreService genreService;
+    private UserService userService;
 
 
     @Autowired
-    private LivreService livreService;
-
-    public LivreController(LivreService livreService) {
+    public AdminController(LivreService livreService, LangueService langueService, AuteurService auteurService, EditeurService editeurService, GenreService genreService, UserService userService) {
         this.livreService = livreService;
+        this.langueService = langueService;
+        this.auteurService = auteurService;
+        this.editeurService = editeurService;
+        this.genreService = genreService;
+        this.userService = userService;
     }
 
 
@@ -48,24 +52,39 @@ public class LivreController {
         model.addAttribute("something", "Pour connaitre les livres");
         log.info("direction page de liste de livre");
         model.addAttribute("livre", livreService.getAllLivres());
-        return "parcourirbiblio";
+        return "adminaccueil";
+    }
+
+    //Avoir la liste des users dans un tableau
+    @GetMapping(value = "/listeuser")
+    public String getUser(Model model){
+
+        log.info("direction page de liste users");
+        model.addAttribute("user", userService.getAllUser());
+        return "adminlisteusers";
     }
 
 
     //Creer un nouveau livre
     @GetMapping (value = "/newlivre")
     public String createLivreForm (Model model){
-        model.addAttribute("something", "enregistrer un livre");
+        model.addAttribute("something", "Ajouter un livre à la Bibliotheque");
+        //ajout de l'attribut en liste
+        model.addAttribute("langues", langueService.getAllLangues());
+        model.addAttribute("editeur", editeurService.getAllEditeur());
+        model.addAttribute("genre", genreService.getAllGenre());
+        //ajout de l'attribut auteur en liste
+        model.addAttribute("auteur", auteurService.getAllAuteur());
         //creer objet livre pour contenir les donnees livres du formulaire
         Livre livre = new Livre();
         model.addAttribute("livre", livre);
-        return "creationlivre";
+        return "admincreationlivre";
     }
 
     @PostMapping (value = "/livres")
     public String saveLivre(@ModelAttribute("livre") Livre livre) {
         livreService.saveLivre(livre);
-        return"redirect:/bibliothequepc/liste";
+        return"redirect:/adminlivre/liste";
     }
 
 
@@ -79,7 +98,7 @@ public class LivreController {
         model.addAttribute("something", "Modifier un livre");
 
         model.addAttribute("livre",livreService.getLivreById(id));
-        return "modifLivre";
+        return "adminmodifLivre";
     }
 
     @PostMapping(value = "/livres/{id}")
@@ -103,7 +122,7 @@ public class LivreController {
 
         livreService.updateLivre(existingLivre);
         System.out.println(livreService.updateLivre(existingLivre));
-        return "redirect:/bibliothequepc/liste";
+        return "redirect:/adminlivre/liste";
 
     }
 
@@ -112,7 +131,7 @@ public class LivreController {
     @GetMapping(value = "/livres/{id}")
     public String deleteLivre(@PathVariable long id){
         livreService.deleteLivreById(id);
-        return "redirect:/bibliothequepc/liste";
+        return "redirect:/adminlivre/liste";
     }
 
 
