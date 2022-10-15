@@ -11,4 +11,6 @@ public interface LangueService {
 
     Langue saveLangue(Langue langue);
 
+    Langue findById(Long id);
+
 }

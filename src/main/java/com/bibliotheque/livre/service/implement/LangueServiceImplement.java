@@ -25,5 +25,10 @@ public class LangueServiceImplement implements LangueService {
         return langueRepository.save(langue);
     }
 
+    @Override
+    public Langue findById(Long id) {
+        return langueRepository.findById(id).orElse(null);
+    }
+
 
 }

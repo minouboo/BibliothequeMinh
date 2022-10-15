@@ -1,5 +1,6 @@
 package com.bibliotheque.livre.controller;
 
+import com.bibliotheque.livre.form.LivreForm;
 import com.bibliotheque.livre.model.*;
 
 import com.bibliotheque.livre.service.*;
@@ -14,6 +15,8 @@ import lombok.extern.java.Log;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+
+import javax.validation.Valid;
 
 
 @Log
@@ -65,10 +68,10 @@ public class AdminController {
     }
 
 
-    //Creer un nouveau livre
+    //entree les données d'un nouveau livre
     @GetMapping (value = "/newlivre")
     public String createLivreForm (Model model){
-        model.addAttribute("something", "Ajouter un livre à la Bibliotheque");
+        model.addAttribute("titre de la page", "Ajouter un livre à la Bibliotheque");
         //ajout de l'attribut en liste
         model.addAttribute("langues", langueService.getAllLangues());
         model.addAttribute("editeur", editeurService.getAllEditeur());
@@ -76,15 +79,30 @@ public class AdminController {
         //ajout de l'attribut auteur en liste
         //model.addAttribute("auteur", auteurService.getAllAuteur());
         //creer objet livre pour contenir les donnees livres du formulaire
-        Livre livre = new Livre();
+        LivreForm livre = new LivreForm();
         model.addAttribute("livre", livre);
         return "admincreationlivre";
     }
 
-    @PostMapping (value = "/livres")
+    //Enregistrer le nouveau livre
+
+   /* @PostMapping (value = "/livres")
     public String saveLivre(@ModelAttribute("livre") Livre livre) {
         livreService.saveLivre(livre);
-        return"redirect:admin/livre";
+        System.out.println(livreService.saveLivre(livre));
+        return"redirect:/liste";
+    } */
+
+    @PostMapping (value = "/livres")
+    public String saveLivre(@Valid @ModelAttribute("livre")LivreForm livre){
+        Livre l =new Livre();
+        l.setIsbn(livre.getIsbn());
+        l.setTitre(livre.getTitre());
+        Langue langue=langueService.findById((livre.getLangueId()));
+
+        l.setLangue(langue);
+        livreService.saveLivre(l);
+        return "redirect:/admin/liste";
     }
 
 
@@ -152,7 +170,7 @@ public class AdminController {
     //Creer une nouvelle langue
     @GetMapping (value = "/newediteur")
     public String createEditeurForm (Model model){
-        model.addAttribute("titre", "Ajouter un nouveau Éditeur");
+        model.addAttribute("titre", "Ajouter un nouveau éditeur");
         //creer objet livre pour contenir les donnees livres du formulaire
         Editeur editeur = new Editeur();
         model.addAttribute("editeur", editeur);
