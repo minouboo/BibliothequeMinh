@@ -28,10 +28,10 @@ public class PretController {
 
 	@Autowired
 	private PretService pretService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 
 	public PretController(PretService pretService, UserService userService) {
 		this.pretService = pretService;
@@ -40,7 +40,7 @@ public class PretController {
 
 	@PostMapping("/emprunter")
 	public String emprunter(@RequestParam("id") Long id) {
-		
+
 		User user = this.userService.getCurrentUser();
 		if(user!=null) {
 			Pret pret = new Pret();
@@ -48,7 +48,7 @@ public class PretController {
 			pret.setUser(user);
 			pret.setExemplaire(null);
 		}
-		
+
 		return null;
 
 	}
@@ -56,7 +56,7 @@ public class PretController {
 	public String rendre(Exemplaire exemplaire) {
 		Pret pre=new Pret();
 		//pre.setDate_fin(new Date());
-		
+
 		return null;
 
 	}

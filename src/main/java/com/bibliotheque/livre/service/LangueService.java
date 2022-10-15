@@ -13,6 +13,4 @@ public interface LangueService {
     
     Langue findById(Long id);
 
-    Langue findById(Long id);
-
 }

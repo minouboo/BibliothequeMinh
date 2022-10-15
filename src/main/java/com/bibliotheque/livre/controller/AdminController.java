@@ -71,7 +71,7 @@ public class AdminController {
     //entree les données d'un nouveau livre
     @GetMapping (value = "/newlivre")
     public String createLivreForm (Model model){
-        model.addAttribute("titre de la page", "Ajouter un livre à la Bibliotheque");
+        model.addAttribute("titre", "Ajouter un livre à la Bibliotheque");
         //ajout de l'attribut en liste
         model.addAttribute("langues", langueService.getAllLangues());
         model.addAttribute("editeur", editeurService.getAllEditeur());
@@ -94,15 +94,15 @@ public class AdminController {
     } */
 
     @PostMapping (value = "/livres")
-    public String saveLivre(@Valid @ModelAttribute("livre")LivreForm livre){
-        Livre l =new Livre();
+    public String saveLivre( @Valid @ModelAttribute("livre") LivreForm livre) {
+        Livre l = new Livre();
         l.setIsbn(livre.getIsbn());
         l.setTitre(livre.getTitre());
-        Langue langue=langueService.findById((livre.getLangueId()));
+        Langue langue= langueService.findById(livre.getLangueId());
 
         l.setLangue(langue);
         livreService.saveLivre(l);
-        return "redirect:/admin/liste";
+        return"redirect:/admin/liste";
     }
 
 

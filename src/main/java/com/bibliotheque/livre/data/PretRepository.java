@@ -39,7 +39,9 @@ public interface PretRepository extends JpaRepository<Pret, Long> {
 	 * List<Pret> findReservationsByAttenteFalseAndRenduFalse();
 	 */
 
+	/*
 	// recuperer un exemplaire d'un utilisateur
 
 	public List<Pret> findByUserIdAndLivreId(Long userId,Long livreId);
+	*/
 }
