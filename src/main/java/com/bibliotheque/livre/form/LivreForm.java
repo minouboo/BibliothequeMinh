@@ -24,4 +24,8 @@ public class LivreForm {
 
     private Long langueId;
 
+    private Long editeurId;
+
+    private Long genreId;
+
 }

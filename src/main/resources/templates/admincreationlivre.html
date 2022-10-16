@@ -65,21 +65,21 @@
                             </option>
                         </select>
                     </div>
-                    <!--<div class = "form-group">
+                    <div class = "form-group">
                         <label>Editeur</label>
-                        <select th:field="*{editeur}">
-                            <option th:each= "l:${editeur}" th:value="${e}" th:text="${e.nom}">
+                        <select th:field="*{editeurId}">
+                            <option th:each= "e:${editeurs}" th:value="${e.id}" th:text="${e.nom}">
                             </option>
                         </select>
                     </div>
                     <div class = "form-group">
                         <label>Genre</label>
-                        <select th:field="*{genre}">
-                            <option th:each= "l:${genre}" th:value="${g}" th:text="${g.nom}">
+                        <select th:field="*{genreId}">
+                            <option th:each= "g:${genre}" th:value="${g}" th:text="${g.nom}">
                             </option>
                         </select>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <div class="col-md-4 mt-5">
                             <label>Date de publication</label>
                             <div class="input-group date">

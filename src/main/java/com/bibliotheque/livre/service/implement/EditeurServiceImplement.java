@@ -15,12 +15,17 @@ public class EditeurServiceImplement implements EditeurService {
     private EditeurRepository editeurRepository;
 
     @Override
-    public List<Editeur> getAllEditeur() {
+    public List<Editeur> getAllEditeurs() {
         return editeurRepository.findAll();
     }
 
     @Override
     public Editeur saveEditeur(Editeur editeur) {
         return editeurRepository.save(editeur);
+    }
+
+    @Override
+    public Editeur findEditeurById(Long id) {
+        return editeurRepository.findById(id).orElse(null);
     }
 }

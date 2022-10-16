@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface EditeurService {
 
-    List<Editeur>getAllEditeur();
+    List<Editeur>getAllEditeurs();
 
     Editeur saveEditeur(Editeur editeur);
+
+    Editeur findEditeurById(Long id);
 
 }

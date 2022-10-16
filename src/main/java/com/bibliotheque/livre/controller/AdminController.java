@@ -74,7 +74,7 @@ public class AdminController {
         model.addAttribute("titre", "Ajouter un livre à la Bibliotheque");
         //ajout de l'attribut en liste
         model.addAttribute("langues", langueService.getAllLangues());
-        model.addAttribute("editeur", editeurService.getAllEditeur());
+        model.addAttribute("editeurs", editeurService.getAllEditeurs());
         model.addAttribute("genre", genreService.getAllGenre());
         //ajout de l'attribut auteur en liste
         //model.addAttribute("auteur", auteurService.getAllAuteur());
@@ -98,9 +98,13 @@ public class AdminController {
         Livre l = new Livre();
         l.setIsbn(livre.getIsbn());
         l.setTitre(livre.getTitre());
-        Langue langue= langueService.findById(livre.getLangueId());
+        Langue langue = langueService.findLangueById(livre.getLangueId());
+        Editeur editeur = editeurService.findEditeurById(livre.getEditeurId());
+        Genre genre = genreService.findGenreById(livre.getGenreId());
 
         l.setLangue(langue);
+        l.setEditeur(editeur);
+        l.setGenre(genre);
         livreService.saveLivre(l);
         return"redirect:/admin/liste";
     }

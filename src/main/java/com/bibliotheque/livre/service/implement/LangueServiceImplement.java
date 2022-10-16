@@ -26,7 +26,7 @@ public class LangueServiceImplement implements LangueService {
     }
 
     @Override
-    public Langue findById(Long id) {
+    public Langue findLangueById(Long id) {
         return langueRepository.findById(id).orElse(null);
     }
 
