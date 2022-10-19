@@ -17,6 +17,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Set;
 
 
 @Log
@@ -75,9 +77,9 @@ public class AdminController {
         //ajout de l'attribut en liste
         model.addAttribute("langues", langueService.getAllLangues());
         model.addAttribute("editeurs", editeurService.getAllEditeurs());
-        model.addAttribute("genre", genreService.getAllGenre());
+        model.addAttribute("genres", genreService.getAllGenre());
         //ajout de l'attribut auteur en liste
-        //model.addAttribute("auteur", auteurService.getAllAuteur());
+        model.addAttribute("auteurs", auteurService.getAllAuteur());
         //creer objet livre pour contenir les donnees livres du formulaire
         LivreForm livre = new LivreForm();
         model.addAttribute("livre", livre);
@@ -101,10 +103,13 @@ public class AdminController {
         Langue langue = langueService.findLangueById(livre.getLangueId());
         Editeur editeur = editeurService.findEditeurById(livre.getEditeurId());
         Genre genre = genreService.findGenreById(livre.getGenreId());
+        /* Auteur auteur = auteurService.findAuteurById(livre.getAuteurId()); */
 
         l.setLangue(langue);
         l.setEditeur(editeur);
         l.setGenre(genre);
+        /* l.setAuteurs((Set<Auteur>) auteur); */
+
         livreService.saveLivre(l);
         return"redirect:/admin/liste";
     }
@@ -142,7 +147,7 @@ public class AdminController {
 
         livreService.updateLivre(existingLivre);
         System.out.println(livreService.updateLivre(existingLivre));
-        return "redirect:/adminlivre/liste";
+        return "redirect:/admin/liste";
 
     }
 
@@ -151,7 +156,7 @@ public class AdminController {
     @GetMapping(value = "/livres/{id}")
     public String deleteLivre(@PathVariable long id){
         livreService.deleteLivreById(id);
-        return "redirect:/adminlivre/liste";
+        return "redirect:/admin/liste";
     }
 
 
@@ -171,7 +176,7 @@ public class AdminController {
         return"redirect:/admin/liste";
     }
 
-    //Creer une nouvelle langue
+    //Ajouter un éditeur
     @GetMapping (value = "/newediteur")
     public String createEditeurForm (Model model){
         model.addAttribute("titre", "Ajouter un nouveau éditeur");

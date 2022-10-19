@@ -23,4 +23,9 @@ public class AuteurServiceImplement implements AuteurService {
     public Auteur saveAuteur(Auteur auteur) {
         return auteurRepository.save(auteur);
     }
+
+    @Override
+    public Auteur findAuteurById(Long id) {
+        return auteurRepository.findById(id).orElse(null);
+    }
 }

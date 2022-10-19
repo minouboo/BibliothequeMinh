@@ -10,4 +10,6 @@ public interface AuteurService {
 
     Auteur saveAuteur (Auteur auteur);
 
+    Auteur findAuteurById(Long id);
+
 }

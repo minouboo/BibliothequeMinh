@@ -75,11 +75,18 @@
                     <div class = "form-group">
                         <label>Genre</label>
                         <select th:field="*{genreId}">
-                            <option th:each= "g:${genre}" th:value="${g}" th:text="${g.nom}">
+                            <option th:each= "g:${genres}" th:value="${g.id}" th:text="${g.nom}">
                             </option>
                         </select>
                     </div>
-                    <!-- <div class="form-group row">
+                    <!-- <div class = "form-group">
+                        <label>Auteur</label>
+                        <select th:field="*{auteurId}">
+                            <option th:each= "a:${auteurs}" th:value="${a.id}" th:text="${a.nom}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-md-4 mt-5">
                             <label>Date de publication</label>
                             <div class="input-group date">
@@ -87,13 +94,7 @@
                             </div>
                         </div>
                     </div>
-                     <div class = "form-group">
-                        <label>Auteur</label>
-                        <select th:field="*{auteur}">
-                            <option th:each= "l:${auteur}" th:value="${a}" th:text="${a.nom}">
-                            </option>
-                        </select>
-                    </div>
+
                     <div class = "form-group">
                         <label>Description</label>
                         <input

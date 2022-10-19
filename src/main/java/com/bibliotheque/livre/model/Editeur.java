@@ -32,8 +32,8 @@ public class Editeur {
     @Column (unique = true)
     private String nom;
 
-    @OneToMany (mappedBy = "editeur")
-    private Set<Livre> livres;
+    /* @OneToMany (mappedBy = "editeur")
+    private Set<Livre> livres; */
 
 }
 

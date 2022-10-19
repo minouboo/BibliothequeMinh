@@ -14,7 +14,7 @@ public class LivreForm {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull (message = "isbn is madatory")
+    @NotNull (message = "isbn is mandatory")
     private Long isbn;
 
 
@@ -27,5 +27,7 @@ public class LivreForm {
     private Long editeurId;
 
     private Long genreId;
+
+    /*  private Long auteurId; */
 
 }

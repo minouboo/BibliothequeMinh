@@ -98,8 +98,8 @@
             <td th:text="${livre.titre}"/>
             <td th:text="${livre.dateDePublication}"/>
             <td th:text="${livre.langue.nom}"/>
-            <td th:text="${livre.editeur}"/>
-            <td th:text="${livre.genre}"/>
+            <td th:text="${livre.editeur.nom}"/>
+            <td th:text="${livre.genre.nom}"/>
             <!-- <td th:text="${livre.auteur}"/> -->
             <td>
 
@@ -110,7 +110,7 @@
                 >Modifier</a>
 
                 <!-- pour supprimer-->
-                <a th:href="@{/adminlivre/livres/{id}(id=${livre.id})}"
+                <a th:href="@{/admin/livres/{id}(id=${livre.id})}"
                    class = "btn btn-danger"
                    sec:authorize = "hasRole('ROLE_ADMIN')"
                 >Supprimer</a>
