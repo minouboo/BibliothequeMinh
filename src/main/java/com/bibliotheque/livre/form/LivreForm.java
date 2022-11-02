@@ -3,9 +3,14 @@ package com.bibliotheque.livre.form;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.bibliotheque.livre.model.Auteur;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -28,6 +33,13 @@ public class LivreForm {
 
     private Long genreId;
 
-    /*  private Long auteurId; */
+    private List<Long> auteursId = new ArrayList<>();
+
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    private Date dateDePublication; /* =new Date()*/
+
+
+
+
 
 }

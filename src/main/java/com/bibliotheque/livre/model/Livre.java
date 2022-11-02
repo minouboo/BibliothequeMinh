@@ -33,7 +33,7 @@ public class Livre {
 
     @DateTimeFormat (pattern = "yyyy-MM-dd")
     @Column(name = "date_de_publication")
-    private Date dateDePublication = new Date();
+    private Date dateDePublication;
 
     @ManyToOne
     @JoinColumn (name="editeur_id")

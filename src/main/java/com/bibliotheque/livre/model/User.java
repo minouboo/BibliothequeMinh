@@ -115,13 +115,15 @@ public class User implements Serializable {
         this.mdp = mdp;
     }
 
-    public List<Pret> getPrets() {
+   public List<Pret> getPrets() {
         return prets;
     }
 
     public void setPrets(List<Pret> prets) {
         this.prets = prets;
     }
+
+
 
     public Set<Role> getRoles() {
         return roles;

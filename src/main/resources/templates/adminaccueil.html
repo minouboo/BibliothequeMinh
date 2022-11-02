@@ -29,7 +29,7 @@
                     <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Consulter mes prêts</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Modifier mon profil</a>
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/compte/test}">Modifier mon profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/admin/newlivre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un livre</a>
@@ -65,7 +65,7 @@
     <div class="input-group" style>
         <div class="form-outline">
             <input type="search"  class="form-control" />
-            <button type="button" class="btn btn-primary">
+            <button type="button" class = "btn btn-primary" id="button">
                 Rechercher
             </button>
         </div>
@@ -75,14 +75,14 @@
     <table class="table table-dark table-striped">
         <thead>
         <tr>
-
+            <th scope="col">id</th>
             <th scope="col">isbn</th>
             <th scope="col">Titre</th>
             <th scope="col">Date de publication</th>
             <th scope="col">Langue</th>
             <th scope="col">Edition</th>
             <th scope="col">Genre</th>
-            <!--<th scope="col">Auteur</th> -->
+            <th scope="col">Auteur</th>
             <th scope="col">Modification</th>
 
 
@@ -93,18 +93,23 @@
         <tbody>
         <tr th:each="livre:${livre}">
 
-
+            <td th:text="${livre.id}"/>
             <td th:text="${livre.isbn}"/>
             <td th:text="${livre.titre}"/>
-            <td th:text="${livre.dateDePublication}"/>
+            <td th:text="${#dates.format(livre.dateDePublication, 'dd-MM-yyyy')}"/>
             <td th:text="${livre.langue.nom}"/>
             <td th:text="${livre.editeur.nom}"/>
             <td th:text="${livre.genre.nom}"/>
-            <!-- <td th:text="${livre.auteur}"/> -->
+            <td>
+                <ul th:each="auteur : ${livre.auteurs}">
+                    <li th:text="${auteur.nom}"></li>
+                </ul>
+            </td>
+
             <td>
 
                 <!-- pour recuper l'id et ensuite modifier le livre -->
-               <a th:href="@{/adminlivre/livres/edit/{id}(id=${livre.id})}"
+               <a th:href="@{/admin/livres/edit/{id}(id=${livre.id})}"
                 class = "btn btn-primary"
                   sec:authorize = "hasRole('ROLE_ADMIN')"
                 >Modifier</a>
@@ -115,8 +120,8 @@
                    sec:authorize = "hasRole('ROLE_ADMIN')"
                 >Supprimer</a>
 
-                <a th:href="@{/adminlivre/livres/edit/{id}(id=${livre.id})}"
-                   class = "btn btn-primary">Prêt</a>
+                <a th:href="@{/admin/pret/{id}(id=${livre.id})}"
+                   class = "btn btn-primary" >Prêt</a>
             </td>
 
 

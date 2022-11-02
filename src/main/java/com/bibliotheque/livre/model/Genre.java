@@ -29,6 +29,6 @@ public class Genre {
     @Column (unique = true)
     private String nom;
 
-    @OneToMany (mappedBy = "genre")
-    private Set<Livre> livres;
+    /* @OneToMany (mappedBy = "genre")
+    private Set<Livre> livres; */
 }

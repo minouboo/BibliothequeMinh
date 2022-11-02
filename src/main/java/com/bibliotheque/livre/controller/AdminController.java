@@ -17,8 +17,6 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Set;
 
 
 @Log
@@ -51,15 +49,6 @@ public class AdminController {
     }
 
 
-    //Avoir la liste des livres dans un tableau
-    @GetMapping (value = "/liste")
-    public String getLivre(Model model){
-        model.addAttribute("something", "Pour connaitre les livres");
-        log.info("direction page de liste de livre");
-        model.addAttribute("livre", livreService.getAllLivres());
-        return "adminaccueil";
-    }
-
     //Avoir la liste des users dans un tableau
     @GetMapping(value = "/listeuser")
     public String getUser(Model model){
@@ -67,6 +56,14 @@ public class AdminController {
         log.info("direction page de liste users");
         model.addAttribute("user", userService.getAllUser());
         return "adminlisteusers";
+    }
+
+    //Avoir la liste des livres dans un tableau
+    @GetMapping (value = "/liste")
+    public String getLivre(Model model){
+        model.addAttribute("something", "Notre liste de livre");
+        model.addAttribute("livre", livreService.getAllLivres());
+        return "adminaccueil";
     }
 
 
@@ -86,81 +83,98 @@ public class AdminController {
         return "admincreationlivre";
     }
 
+
     //Enregistrer le nouveau livre
-
-   /* @PostMapping (value = "/livres")
-    public String saveLivre(@ModelAttribute("livre") Livre livre) {
-        livreService.saveLivre(livre);
-        System.out.println(livreService.saveLivre(livre));
-        return"redirect:/liste";
-    } */
-
     @PostMapping (value = "/livres")
     public String saveLivre( @Valid @ModelAttribute("livre") LivreForm livre) {
         Livre l = new Livre();
         l.setIsbn(livre.getIsbn());
         l.setTitre(livre.getTitre());
+        l.setDateDePublication(livre.getDateDePublication());
         Langue langue = langueService.findLangueById(livre.getLangueId());
         Editeur editeur = editeurService.findEditeurById(livre.getEditeurId());
         Genre genre = genreService.findGenreById(livre.getGenreId());
-        /* Auteur auteur = auteurService.findAuteurById(livre.getAuteurId()); */
+        for (Long id:livre.getAuteursId()
+             ) {
+            Auteur auteur = auteurService.findAuteurById(id);
+            if (auteur != null){
+                l.getAuteurs().add(auteur);
+            }
+        };
 
         l.setLangue(langue);
         l.setEditeur(editeur);
         l.setGenre(genre);
-        /* l.setAuteurs((Set<Auteur>) auteur); */
 
         livreService.saveLivre(l);
         return"redirect:/admin/liste";
     }
 
-
-    //Modifier les livres
+    //Modifier un livre
     @GetMapping( value = "/livres/edit/{id}")
-
     public String editLivreForm(@PathVariable Long id, Model model){
 
-        model.addAttribute("something", "Modifier un livre");
+        model.addAttribute("titre", "Modifier un livre");
 
-        model.addAttribute("livre",livreService.getLivreById(id));
+        //ajout de l'attribut en liste
+        model.addAttribute("langues", langueService.getAllLangues());
+        model.addAttribute("editeurs", editeurService.getAllEditeurs());
+        model.addAttribute("genres", genreService.getAllGenre());
+        //ajout de l'attribut auteur en liste
+        model.addAttribute("auteurs", auteurService.getAllAuteur());
+
+        //LivreForm livremodif = new LivreForm();
+
+        model.addAttribute("livre", livreService.getLivreById(id));
+
+
         return "adminmodifLivre";
     }
 
     @PostMapping(value = "/livres/{id}")
-    public String updateLivre(@PathVariable long id,
-                              @ModelAttribute("livre") Livre livre,
-                              Model model) {
-
-        log.info("direction page modification de livre");
+    public String updateLivre(@PathVariable Long id, @ModelAttribute("livre") Livre livre) {
+        //Livre livreUpdated = new Livre();
         //recevoir livre de la base de donnee
+        //livreUpdated.setIsbn(livre.getIsbn());
+        //livreUpdated.setTitre(livre.getTitre());
         Livre existingLivre = livreService.getLivreById(id);
         existingLivre.setIsbn(livre.getIsbn());
         existingLivre.setTitre(livre.getTitre());
-        existingLivre.setDescription(livre.getDescription());
-        existingLivre.setGenre(livre.getGenre());
         existingLivre.setLangue(livre.getLangue());
-        /*
-        existingLivre.setAuteur(livre.getAuteur());
-        existingLivre.setEditeur_id(livre.getEditeur_id()); */
+        existingLivre.setGenre(livre.getGenre());
+        existingLivre.setEditeur(livre.getEditeur());
+        existingLivre.setAuteurs(livre.getAuteurs());
+        //existingLivre.setDescription(livre.getDescription());
+        //existingLivre.setAuteur(livre.getAuteur());
 
-        //sauvegarder l'objet livre
+        //Langue langue = langueService.findLangueById(livre.getLangueId());
+        //Genre genre = genreService.findGenreById(livre.getGenreId());
 
+        //Modifier l'objet livre
         livreService.updateLivre(existingLivre);
-        System.out.println(livreService.updateLivre(existingLivre));
-        return "redirect:/admin/liste";
 
+        return "redirect:/admin/liste";
     }
 
 
     // supprimer le livre
     @GetMapping(value = "/livres/{id}")
-    public String deleteLivre(@PathVariable long id){
+    public String deleteLivre(@PathVariable Long id){
         livreService.deleteLivreById(id);
         return "redirect:/admin/liste";
     }
 
+    // Pret de livre
+    @GetMapping (value = "pret/{id}")
+    public String pretLivre (@PathVariable Long id, Model model){
 
-    //Creer une nouvelle langue
+        model.addAttribute("livre", livreService.getLivreById(id));
+        return "userpret";
+    }
+
+
+
+    //Ajouter une nouvelle langue
     @GetMapping (value = "/newlangue")
     public String createLangueForm (Model model){
         model.addAttribute("titre", "Ajouter une nouvelle langue");
@@ -192,7 +206,7 @@ public class AdminController {
         return"redirect:/admin/liste";
     }
 
-    //Creer un nouveau genre
+    //Ajouter un nouveau genre
     @GetMapping (value = "/newgenre")
     public String createGenreForm (Model model){
         model.addAttribute("titre", "Ajouter un nouveau genre");
@@ -208,7 +222,7 @@ public class AdminController {
         return"redirect:/admin/liste";
     }
 
-    //Creer un nouvel auteur
+    //Ajouter un nouvel auteur
     @GetMapping (value = "/newauteur")
     public String createAuteurForm (Model model){
         model.addAttribute("titre", "Ajouter un nouvel auteur");

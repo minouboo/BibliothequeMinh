@@ -5,6 +5,8 @@ import com.bibliotheque.livre.model.User;
 import com.bibliotheque.livre.service.LivreService;
 import com.bibliotheque.livre.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,17 +61,26 @@ public class UserController {
     }
 
 
-    //Modifier les users
-    @GetMapping(value = "/user/edit/{id}")
+    //Récupérer l'utilisateur connecté
 
+    @GetMapping (value="/test")
+    public String getUser (Model model, Authentication authentication){
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        model.addAttribute("user", userDetails);
+        return "test";
+    }
+
+    /* @GetMapping(value = "/user/edit/{id}")
     public String editUserForm(@PathVariable Long id, Model model){
 
         model.addAttribute("titremodif", "Modifier le compte");
         model.addAttribute("user", userService.getUserById(id));
         return "usermodif";
-    }
+    } */
 
-    @PostMapping(value = "/modifuser/{id}")
+
+    //Modifier les users
+    @PostMapping (value = "/modifuser")
     public String updateUser(@PathVariable long id,
                              @ModelAttribute("user") User user,
                               Model model){

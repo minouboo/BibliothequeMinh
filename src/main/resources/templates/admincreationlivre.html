@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -19,14 +20,36 @@
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/admin/liste}">Parcourir la bibliothèque</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Consulter mes prêts</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Modifier mon profil</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" th:href = "@{/admin/newlivre}">Ajouter un livre</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/admin/newlivre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un livre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="onglet" th:href = "@{/admin/listeuser}" sec:authorize = "hasRole('ROLE_ADMIN')">Liste des utilisateurs</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newlangue}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter une langue</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"  th:href = "@{/admin/newediteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un éditeur</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newgenre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un genre</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newauteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un auteur</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <!-- Navbar -->
+
 
 
 <body>
@@ -58,44 +81,42 @@
                                 placeholder="Entrer le titre"
                         />
                     </div>
-                    <div class = "form-group">
+                    <div class = "form-group row">
                         <label>Langue</label>
                         <select th:field="*{langueId}">
                             <option th:each= "l:${langues}" th:value="${l.id}" th:text="${l.nom}">
                             </option>
                         </select>
                     </div>
-                    <div class = "form-group">
+                    <div class = "form-group row">
                         <label>Editeur</label>
                         <select th:field="*{editeurId}">
                             <option th:each= "e:${editeurs}" th:value="${e.id}" th:text="${e.nom}">
                             </option>
                         </select>
                     </div>
-                    <div class = "form-group">
+                    <div class = "form-group row">
                         <label>Genre</label>
                         <select th:field="*{genreId}">
                             <option th:each= "g:${genres}" th:value="${g.id}" th:text="${g.nom}">
                             </option>
                         </select>
                     </div>
-                    <!-- <div class = "form-group">
-                        <label>Auteur</label>
-                        <select th:field="*{auteurId}">
-                            <option th:each= "a:${auteurs}" th:value="${a.id}" th:text="${a.nom}">
-                            </option>
-                        </select>
+                    <div class="form-group row">
+                        <label>Auteurs</label>
+                            <select th:field="*{auteursId}" id="multiple-hobbies" multiple="multiple">
+                                <option th:each= "a:${auteurs}" th:value="${a.id}" th:text="${a.nom}">
+                                </option>
+                            </select>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-4 mt-5">
                             <label>Date de publication</label>
                             <div class="input-group date">
                                 <input type="date" class="form-control" th:field="*{dateDePublication}"/>
                             </div>
-                        </div>
                     </div>
 
-                    <div class = "form-group">
+                    <!-- <div class = "form-group">
                         <label>Description</label>
                         <input
                             class = "form-control"
