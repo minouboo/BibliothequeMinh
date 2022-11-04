@@ -1,6 +1,6 @@
 package com.bibliotheque.livre.service;
 
-import com.bibliotheque.livre.model.Livre;
+
 import com.bibliotheque.livre.model.Pret;
 
 import java.util.List;
@@ -21,5 +21,9 @@ public interface PretService {
 
     //pour supprimer un Pret
     void deletePretById (long id);
+
+    //List<Pret> getUserPret(Long userId);
+
+
 
 }

@@ -4,8 +4,15 @@
     <title>Hello World!</title>
 </head>
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<h1 th:inline="text">Hello from controller [[${username}]]!</h1>
+
+
+<h1 th:text="${user.nom}"/>
+<div class="form-group row">
+    <ul th:each="pret : ${user.prets}">
+        <li th:text="${pret.id}"></li>
+    </ul>
+</div>
+
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

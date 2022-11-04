@@ -64,7 +64,7 @@
             <div class = "card-body">
 
                 <!-- pour recuperer un id -->
-                <form th:action = "@{/compte/modifuser}" th:object = "${username}" method = "POST">
+                <form th:action = "@{/compte/modifuser}" th:object = "${user}" method = "POST">
 
                     <div class = "form-group">
                         <label>Nom</label>
@@ -100,10 +100,10 @@
                         <label>Mot de passe</label>
                         <input
                                 class = "form-control"
-                                type = "text"
+                                type = "password"
                                 name = "mdp"
                                 th:field = "*{mdp}"
-                                placeholder="Votre mot de passe"
+                                placeholder="Votre nouveau mot de passe"
                         />
                     </div>
 

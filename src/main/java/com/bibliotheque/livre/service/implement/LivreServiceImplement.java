@@ -48,4 +48,13 @@ public class LivreServiceImplement implements LivreService {
     public void deleteLivreById(long id) {
         livreRepository.deleteById(id);
     }
+
+    /*
+    @Override
+    public List<Livre> findLivreBySF (){
+        return livreRepository.findLivresBySF();
+    } */
 }
+
+
+

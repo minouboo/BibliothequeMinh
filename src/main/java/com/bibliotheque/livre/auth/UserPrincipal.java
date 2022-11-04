@@ -29,6 +29,8 @@ public class UserPrincipal implements UserDetails {
         return user.getMdp();
     }
 
+    public String getNom(){return user.getNom();}
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List< SimpleGrantedAuthority> authorities = user.getRoles().stream()

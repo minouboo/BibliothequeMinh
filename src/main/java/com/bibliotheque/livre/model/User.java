@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
+@ToString (exclude = {"prets"})
 @Getter
 @Setter
 @Builder
@@ -51,7 +51,7 @@ public class User implements Serializable {
     private String mdp;
 
     @OneToMany (mappedBy = "user")
-    private List<Pret> prets = new ArrayList<>();
+    private Set<Pret> prets = new HashSet<>();
 
 
 
@@ -115,11 +115,11 @@ public class User implements Serializable {
         this.mdp = mdp;
     }
 
-   public List<Pret> getPrets() {
+   public Set<Pret> getPrets() {
         return prets;
     }
 
-    public void setPrets(List<Pret> prets) {
+    public void setPrets(Set<Pret> prets) {
         this.prets = prets;
     }
 

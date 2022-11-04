@@ -1,8 +1,10 @@
 package com.bibliotheque.livre.controller;
 
+import com.bibliotheque.livre.model.Pret;
 import com.bibliotheque.livre.model.User;
 
 import com.bibliotheque.livre.service.LivreService;
+import com.bibliotheque.livre.service.PretService;
 import com.bibliotheque.livre.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,11 +32,14 @@ public class UserController {
 
     private PasswordEncoder passwordEncoder;
 
+    private PretService pretService;
+
     @Autowired
-    public UserController(UserService userService, LivreService livreService, PasswordEncoder passwordEncoder){
+    public UserController(UserService userService, LivreService livreService, PasswordEncoder passwordEncoder, PretService pretService){
         this.userService = userService;
         this.livreService = livreService;
         this.passwordEncoder = passwordEncoder;
+        this.pretService = pretService;
     }
 
 
@@ -51,52 +56,66 @@ public class UserController {
         return "creationcompte";
     }
 
-    @PostMapping(value="/utilisateurs")
+    @PostMapping(value = "/utilisateurs")
     public String saveUser (@ModelAttribute ("User") User user){
         //encoder le mot de passe
         user.setMdp(passwordEncoder.encode(user.getMdp()));
         userService.saveUser(user);
-        System.out.println(userService.saveUser(user));
         return "redirect:/compte/liste";
     }
 
 
     //Récupérer l'utilisateur connecté
 
-    @GetMapping (value="/test")
+    @GetMapping (value = "/test")
     public String getUser (Model model, Authentication authentication){
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         model.addAttribute("user", userDetails);
-        return "test";
+        return "Hello";
     }
 
-    /* @GetMapping(value = "/user/edit/{id}")
-    public String editUserForm(@PathVariable Long id, Model model){
-
-        model.addAttribute("titremodif", "Modifier le compte");
-        model.addAttribute("user", userService.getUserById(id));
+    @GetMapping(value = "/viewutilisateur")
+    public String viewPret (Model model){
+        model.addAttribute("titremodif", "Modification du profil");
+        User user = userService.getCurrentUser();
+        model.addAttribute("user", user);
         return "usermodif";
-    } */
+    }
 
-
-    //Modifier les users
+    //Modifier mon profil
     @PostMapping (value = "/modifuser")
-    public String updateUser(@PathVariable long id,
+    public String updateUser(
                              @ModelAttribute("user") User user,
                               Model model){
 
-        log.info("direction page de modification de l'utilisateur");
+        //recevoir User de la base de donnée
+        User existingUser = userService.getCurrentUser();
+        existingUser.setNom(user.getNom());
+        existingUser.setPrenom(user.getPrenom());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setMdp(passwordEncoder.encode(user.getMdp()));
+
+        //sauvegarder l'objet user
+        userService.updateUser(existingUser);
+        return "redirect:/compte/liste";
+    }
+
+    //Modifier un user
+    @PostMapping (value = "/modiftheuser")
+    public String updateUsers(@PathVariable Long id,
+            @ModelAttribute("user") User user,
+            Model model){
+
         //recevoir User de la base de donnée
         User existingUser = userService.getUserById(id);
         existingUser.setNom(user.getNom());
         existingUser.setPrenom(user.getPrenom());
         existingUser.setEmail(user.getEmail());
-        existingUser.setMdp(user.getMdp());
+        existingUser.setMdp(passwordEncoder.encode(user.getMdp()));
 
         //sauvegarder l'objet user
         userService.updateUser(existingUser);
-        System.out.println(userService.updateUser(existingUser));
-        return "redirect:/compte/listeuser";
+        return "redirect:/compte/liste";
     }
 
     //Supprimer un utilisateur
@@ -126,6 +145,23 @@ public class UserController {
         model.addAttribute("user", userService.getUserById(id));
         return "adminaccueil";
     }
+
+
+    //Récupérer les prets d'un utilisateur
+    /*@GetMapping (value = "/mesprets")
+    public String viewMesPrets ( @PathVariable Long id, Model model){
+        User user = userService.getCurrentUser();
+        //Pret pret = pretService.getUserPret(userId);
+        return null;
+    } */
+
+    /* @GetMapping(value = "/user/edit/{id}")
+    public String editUserForm(@PathVariable Long id, Model model){
+
+        model.addAttribute("titremodif", "Modifier le compte");
+        model.addAttribute("user", userService.getUserById(id));
+        return "usermodif";
+    } */
 
 
 }

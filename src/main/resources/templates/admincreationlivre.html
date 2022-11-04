@@ -32,18 +32,6 @@
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/admin/listeuser}" sec:authorize = "hasRole('ROLE_ADMIN')">Liste des utilisateurs</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newlangue}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter une langue</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"  th:href = "@{/admin/newediteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un éditeur</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newgenre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un genre</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newauteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un auteur</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -53,8 +41,10 @@
 
 
 <body>
+
 <div class = "container">
     <div class = "row" >
+
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class = "text-center" th:text="${titre}"/>
             <div class = "card-body">
@@ -104,16 +94,16 @@
                     </div>
                     <div class="form-group row">
                         <label>Auteurs</label>
-                            <select th:field="*{auteursId}" id="multiple-hobbies" multiple="multiple">
-                                <option th:each= "a:${auteurs}" th:value="${a.id}" th:text="${a.nom}">
-                                </option>
-                            </select>
+                        <select th:field="*{auteursId}" id="multiple-hobbies" multiple="multiple">
+                            <option th:each= "a:${auteurs}" th:value="${a.id}" th:text="${a.nom}">
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group row">
-                            <label>Date de publication</label>
-                            <div class="input-group date">
-                                <input type="date" class="form-control" th:field="*{dateDePublication}"/>
-                            </div>
+                        <label>Date de publication</label>
+                        <div class="input-group date">
+                            <input type="date" class="form-control" th:field="*{dateDePublication}"/>
+                        </div>
                     </div>
 
                     <!-- <div class = "form-group">
@@ -137,8 +127,103 @@
 
             </div>
         </div>
+
+        <div class = "col-lg-3 col-md-3 col-sm-3 container justify-content-center card">
+            <div class = "card-body">
+
+                <form th:action = "@{/admin/langues}" th:object = "${langue}" method = "POST">
+
+                    <div class = "form-group">
+                        <label>Langue</label>
+                        <input
+                                class = "form-control"
+                                type = "text"
+                                name = "nom"
+                                th:field = "*{nom}"
+                                placeholder="Ajouter une langue"
+                        />
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type = "submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+                <form th:action = "@{/admin/editeurs}" th:object = "${editeur}" method = "POST">
+
+                    <div class = "form-group">
+                        <label>Editeur</label>
+                        <input
+                                class = "form-control"
+                                type = "text"
+                                name = "nom"
+                                th:field = "*{nom}"
+                                placeholder="Ajouter un éditeur"
+                        />
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type = "submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+                <form th:action = "@{/admin/genres}" th:object = "${genre}" method = "POST">
+
+                    <div class = "form-group">
+                        <label>Genre</label>
+                        <input
+                                class = "form-control"
+                                type = "text"
+                                name = "nom_genre"
+                                th:field = "*{nom}"
+                                placeholder="Ajouter un genre"
+                        />
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type = "submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+                <form th:action = "@{/admin/auteurs}" th:object = "${auteur}" method = "POST">
+
+                    <div class = "form-group">
+                        <label>Auteur</label>
+                        <input
+                                class = "form-control"
+                                type = "text"
+                                name = "nom"
+                                th:field = "*{nom}"
+                                placeholder="Ajouter un auteur"
+                        />
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type = "submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
     </div>
 </div>
+
+
+
+
 </body>
 
 </html>

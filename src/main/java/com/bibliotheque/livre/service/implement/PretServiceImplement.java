@@ -2,7 +2,6 @@ package com.bibliotheque.livre.service.implement;
 
 import com.bibliotheque.livre.data.PretRepository;
 import com.bibliotheque.livre.model.Pret;
-import com.bibliotheque.livre.model.User;
 import com.bibliotheque.livre.service.PretService;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +46,14 @@ public class PretServiceImplement implements PretService {
     public void deletePretById(long id) {
 
     }
+
+    /*
+    @Override
+    public List<Pret> getUserPret(Long userId) {
+        return pretRepository.getUserPret(userId);
+    }
+
+     */
 
 
 }

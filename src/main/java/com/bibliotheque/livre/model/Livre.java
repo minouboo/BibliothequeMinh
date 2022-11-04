@@ -10,7 +10,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
+@ToString //Exclure exemplaire
 @Getter
 @Setter
 @Builder

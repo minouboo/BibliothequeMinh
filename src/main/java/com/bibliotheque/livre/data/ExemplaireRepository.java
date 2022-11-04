@@ -12,6 +12,5 @@ public interface ExemplaireRepository extends JpaRepository<Exemplaire, Long> {
 	//public long countBy(Long livreId,);
 	//recuperer un exemplaire dispo
 	
-	
-	//
+
 }
