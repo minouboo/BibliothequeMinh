@@ -1,6 +1,7 @@
 package com.bibliotheque.livre.controller;
 
 import com.bibliotheque.livre.data.LivreRepository;
+import com.bibliotheque.livre.form.ExemplaireForm;
 import com.bibliotheque.livre.form.LivreForm;
 import com.bibliotheque.livre.model.*;
 
@@ -18,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 
 @Log
@@ -38,17 +40,20 @@ public class AdminController {
     private GenreService genreService;
     private UserService userService;
 
+    private ExemplaireService exemplaireService;
+
     private LivreRepository livreRepository;
 
 
     @Autowired
-    public AdminController(LivreService livreService, LangueService langueService, AuteurService auteurService, EditeurService editeurService, GenreService genreService, UserService userService, LivreRepository livreRepository) {
+    public AdminController(LivreService livreService, LangueService langueService, AuteurService auteurService, EditeurService editeurService, GenreService genreService, UserService userService, ExemplaireService exemplaireService, LivreRepository livreRepository) {
         this.livreService = livreService;
         this.langueService = langueService;
         this.auteurService = auteurService;
         this.editeurService = editeurService;
         this.genreService = genreService;
         this.userService = userService;
+        this.exemplaireService = exemplaireService;
         this.livreRepository = livreRepository;
     }
 
@@ -109,6 +114,8 @@ public class AdminController {
         l.setIsbn(livre.getIsbn());
         l.setTitre(livre.getTitre());
         l.setDateDePublication(livre.getDateDePublication());
+
+
         Langue langue = langueService.findLangueById(livre.getLangueId());
         Editeur editeur = editeurService.findEditeurById(livre.getEditeurId());
         Genre genre = genreService.findGenreById(livre.getGenreId());
@@ -119,14 +126,17 @@ public class AdminController {
                 l.getAuteurs().add(auteur);
             }
         };
-
         l.setLangue(langue);
         l.setEditeur(editeur);
         l.setGenre(genre);
 
+        //Exemplaire exemplaire = exemplaireService.saveExemplaire(new Exemplaire());
+        //l.setExemplaires((Set<Exemplaire>) exemplaire);
+
         livreService.saveLivre(l);
         return"redirect:/admin/liste";
     }
+
 
     //Modifier un livre
     @GetMapping( value = "/livres/edit/{id}")
@@ -143,9 +153,13 @@ public class AdminController {
         //LivreForm livremodif = new LivreForm();
         model.addAttribute("livre", livreService.getLivreById(id));
 
+        ExemplaireForm exemplaire = new ExemplaireForm();
+        model.addAttribute("exemplaire", exemplaire);
+
         return "adminmodifLivre";
     }
 
+    //Enregistrer le livre modifié
     @PostMapping(value = "/livres/{id}")
     public String updateLivre(@PathVariable Long id, @ModelAttribute("livre") Livre livre) {
 
@@ -163,6 +177,20 @@ public class AdminController {
 
         return "redirect:/admin/liste";
     }
+
+    //Ajouter un exemplaire
+    @PostMapping(value = "/newexemplaire")
+    public String addExemplaire (@Valid @ModelAttribute("exemplaire") ExemplaireForm exemplaire){
+        Exemplaire e = new Exemplaire();
+        e.setCodeBarre(exemplaire.getCodeBarre());
+        Livre livre = livreService.findLivreById(exemplaire.getLivreId());
+        e.setLivre(livre);
+        exemplaireService.saveExemplaire(e);
+        return "redirect:/admin/liste" ;
+    }
+
+
+
 
 
     // supprimer le livre
@@ -200,14 +228,6 @@ public class AdminController {
         return"redirect:/admin/newlivre";
     }
 
-    // Pret de livre
-    @GetMapping (value = "pret/{id}")
-    public String pretLivre (@PathVariable Long id, Model model){
-
-        model.addAttribute("livre", livreService.getLivreById(id));
-        return "userpret";
-    }
-
     //Avoir la liste des livres SF dans un tableau
     @GetMapping (value = "/listeSF")
     public String getLivreSF(Model model){
@@ -216,11 +236,7 @@ public class AdminController {
         return "adminaccueil";
     }
 
-    //Ajouter un exemplaire
-    public String addExemplaire (Model model){
 
-        return null ;
-    }
 
 
 

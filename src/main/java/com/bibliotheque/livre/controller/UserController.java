@@ -138,13 +138,23 @@ public class UserController {
 
     //recevoir les données d'un user
     @GetMapping(value = "/user/{id}")
-
     public String userForm(@PathVariable Long id, Model model){
 
         model.addAttribute("titremodif", "Modifier le compte");
         model.addAttribute("user", userService.getUserById(id));
         return "adminaccueil";
     }
+
+    // Pret de livre
+    @GetMapping (value = "pret/{id}")
+    public String pretLivre (@PathVariable Long id, Model model){
+
+        model.addAttribute("livre", livreService.getLivreById(id));
+
+        return "userpret";
+    }
+
+
 
 
     //Récupérer les prets d'un utilisateur

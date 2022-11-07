@@ -35,8 +35,10 @@ public class LivreForm {
 
     private List<Long> auteursId = new ArrayList<>();
 
+
+
     @DateTimeFormat (pattern = "yyyy-MM-dd")
-    private Date dateDePublication; /* =new Date()*/
+    private Date dateDePublication;
 
 
 

@@ -95,8 +95,46 @@
                         <li th:text="${auteur.nom}"></li>
                     </ul>
                 </div>
-                <a href="#" class="btn btn-primary" id="button">Emprunter</a>
             </div>
+
+            <div class = "col-lg-3 col-md-3 col-sm-3 container justify-content-center card">
+                <div class = "card-body">
+
+                    <form th:action = "@{/admin/newexemplaire}" th:object = "${exemplaire}" method = "POST">
+
+                        <div class = "form-group">
+                            <label>Id du livre</label>
+                            <input
+                                    class = "form-control"
+                                    type = "text"
+                                    name = "id du livre"
+
+                                    placeholder="Ajouter un code barre"
+                            />
+                        </div>
+
+                        <div class = "form-group">
+                            <label>Code barre</label>
+                            <input
+                                    class = "form-control"
+                                    type = "text"
+                                    name = "code barre"
+
+                                    placeholder="Ajouter un code barre"
+                            />
+                        </div>
+
+                        <div class = "box-footer">
+                            <button type = "submit" class = "btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
         </div>
     </div>
 

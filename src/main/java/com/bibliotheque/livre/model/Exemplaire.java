@@ -10,7 +10,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
 @Getter
 @Setter
 @Builder
@@ -24,7 +23,7 @@ public class Exemplaire {
     private Long id;
     
     @Column
-    private String codeBare;
+    private String codeBarre;
 
     @ManyToOne
     @JoinColumn (name="livre_id")

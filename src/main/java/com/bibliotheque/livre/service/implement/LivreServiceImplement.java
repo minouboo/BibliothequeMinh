@@ -49,6 +49,9 @@ public class LivreServiceImplement implements LivreService {
         livreRepository.deleteById(id);
     }
 
+    @Override
+    public Livre findLivreById (Long id) {return livreRepository.findById(id).orElse(null);}
+
     /*
     @Override
     public List<Livre> findLivreBySF (){

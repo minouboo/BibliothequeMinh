@@ -33,18 +33,6 @@
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/admin/listeuser}" sec:authorize = "hasRole('ROLE_ADMIN')">Liste des utilisateurs</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newlangue}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter une langue</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"  th:href = "@{/admin/newediteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un éditeur</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newgenre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un genre</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newauteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un auteur</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -147,6 +135,45 @@
                         </form>
                     </div>
                 </div>
+
+                <div class = "col-lg-3 col-md-3 col-sm-3 container justify-content-center card">
+                    <div class = "card-body">
+
+                        <form th:action = "@{/admin/newexemplaire}" th:object = "${exemplaire}" method = "POST">
+
+                            <div class = "form-group">
+                                <label>Id du livre</label>
+                                <input
+                                        class = "form-control"
+                                        type = "text"
+                                        name = "id du livre"
+                                        th:field = "*{livreId}"
+                                        th:text="${livre.id}"
+                                />
+                            </div>
+
+                            <div class = "form-group">
+                                <label>Code barre</label>
+                                <input
+                                        class = "form-control"
+                                        type = "text"
+                                        name = "code barre"
+                                        th:field = "*{codeBarre}"
+                                        placeholder="Ajouter un code barre"
+                                />
+                            </div>
+
+                            <div class = "box-footer">
+                                <button type = "submit" class = "btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </body>

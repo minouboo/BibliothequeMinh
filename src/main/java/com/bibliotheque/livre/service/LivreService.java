@@ -21,6 +21,8 @@ public interface LivreService {
     //pour supprimer un livre
     void deleteLivreById (long id);
 
+    Livre findLivreById (Long id);
+
    // List<Livre> findLivreBySF();
 
 }
