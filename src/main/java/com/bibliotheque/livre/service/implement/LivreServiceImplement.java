@@ -1,11 +1,14 @@
 package com.bibliotheque.livre.service.implement;
 
 import com.bibliotheque.livre.data.LivreRepository;
+import com.bibliotheque.livre.model.Description;
 import com.bibliotheque.livre.model.Livre;
+import com.bibliotheque.livre.model.Paragraphe;
 import com.bibliotheque.livre.service.LivreService;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,18 +48,32 @@ public class LivreServiceImplement implements LivreService {
     }
 
     @Override
-    public void deleteLivreById(long id) {
+    public void deleteLivreById(Long id) {
         livreRepository.deleteById(id);
     }
 
     @Override
     public Livre findLivreById (Long id) {return livreRepository.findById(id).orElse(null);}
 
-    /*
     @Override
-    public List<Livre> findLivreBySF (){
-        return livreRepository.findLivresBySF();
-    } */
+    public void convertToParagraphes(String texte, Description description) {
+        String [] tab = texte.split("\\r\\n");
+
+        int i =0;
+        for ( String line:tab){
+            Paragraphe p = new Paragraphe();
+            p.setTexte(line);
+            p.setOrdre(i++);
+            p.setDescription(description);
+            description.getParagraphes().add(p);
+
+        }
+
+
+
+
+    }
+
 }
 
 

@@ -47,13 +47,13 @@ public class PretServiceImplement implements PretService {
 
     }
 
-    /*
+
     @Override
     public List<Pret> getUserPret(Long userId) {
         return pretRepository.getUserPret(userId);
     }
 
-     */
+
 
 
 }

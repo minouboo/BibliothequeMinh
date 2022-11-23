@@ -17,9 +17,9 @@ import java.util.List;
 public interface PretRepository extends JpaRepository<Pret, Long> {
 
 
-	/*
-	@Query ("select p from Pret p inner join p.user u where u.id = ?")
-	List<Pret> getUserPret(Long userId);
 
-	 */
+	@Query ("select p from Pret p inner join p.user u where u.id = :userid")
+	List<Pret> getUserPret(@Param("userid") Long userId);
+
+
 }

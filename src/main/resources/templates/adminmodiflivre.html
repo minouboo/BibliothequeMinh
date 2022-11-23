@@ -137,8 +137,8 @@
                 </div>
 
                 <div class = "col-lg-3 col-md-3 col-sm-3 container justify-content-center card">
+                    <h3 class = "text-center" th:text="${titreajout}"/>
                     <div class = "card-body">
-
                         <form th:action = "@{/admin/newexemplaire}" th:object = "${exemplaire}" method = "POST">
 
                             <div class = "form-group">
@@ -148,7 +148,9 @@
                                         type = "text"
                                         name = "id du livre"
                                         th:field = "*{livreId}"
-                                        th:text="${livre.id}"
+                                        th:value="${livre.id}"
+                                        placeholder="id du livre"
+
                                 />
                             </div>
 
@@ -168,9 +170,32 @@
                                     Submit
                                 </button>
                             </div>
-
                         </form>
+                    </div>
 
+                    <div class = "card-body">
+                        <h3 class = "text-center" th:text="${titreexemplaireexistant}"/>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Code barre</th>
+                                <th scope="col">Modification</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="exemplaire : ${listeexemplaire}">
+
+                                <td th:text="${exemplaire.codeBarre}"/>
+                                <td>
+
+                                    <a th:href="@{/admin/exemplaire/{id}(id=${exemplaire.id})}"
+                                       class = "btn btn-danger"
+                                       sec:authorize = "hasRole('ROLE_ADMIN')"
+                                    >Supprimer</a>
+                                </td>
+                            </tr>
+                            <tbody/>
+                        </table>
                     </div>
                 </div>
 

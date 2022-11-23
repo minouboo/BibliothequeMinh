@@ -2,7 +2,9 @@ package com.bibliotheque.livre.service;
 
 import java.util.List;
 
+import com.bibliotheque.livre.model.Description;
 import com.bibliotheque.livre.model.Livre;
+import com.bibliotheque.livre.model.Paragraphe;
 
 public interface LivreService {
 
@@ -19,10 +21,12 @@ public interface LivreService {
     Livre updateLivre(Livre livre);
 
     //pour supprimer un livre
-    void deleteLivreById (long id);
+    void deleteLivreById (Long id);
 
     Livre findLivreById (Long id);
 
-   // List<Livre> findLivreBySF();
+    void convertToParagraphes(String Text, Description description);
+
+
 
 }

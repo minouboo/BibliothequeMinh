@@ -1,5 +1,6 @@
 package com.bibliotheque.livre.controller;
 
+import com.bibliotheque.livre.form.PretForm;
 import com.bibliotheque.livre.model.Pret;
 import com.bibliotheque.livre.model.User;
 
@@ -18,6 +19,8 @@ import lombok.extern.java.Log;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+
+import javax.validation.Valid;
 
 @Log
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -42,11 +45,26 @@ public class UserController {
         this.pretService = pretService;
     }
 
+    //Avoir la liste des livres dans un tableau
+    @GetMapping (value = "/liste")
+    public String getLivre(Model model){
+        model.addAttribute("something", "Notre liste de livre");
+        log.info("direction page de liste de livre");
+        model.addAttribute("livre", livreService.getAllLivres());
+        return "adminaccueil";
+    }
 
+    //Avoir la liste de mes prets
+    @GetMapping (value = "/mesprets")
+    public String getPret(Model model){
+        model.addAttribute("titre", "Mes prêts");
+        User user = userService.getCurrentUser();
 
+        model.addAttribute("pret", pretService.getUserPret(user.getId()));
+        return "userlistepret";
+    }
 
-    //Creer un nouveau user
-
+    //Ajouter les donnees d'un nouvel user
     @GetMapping (value = "/nouveaucompte")
     public String createUserForm (Model model) {
         model.addAttribute("titre", "Creation de votre compte");
@@ -56,6 +74,7 @@ public class UserController {
         return "creationcompte";
     }
 
+    //Creer un nouveau user
     @PostMapping(value = "/utilisateurs")
     public String saveUser (@ModelAttribute ("User") User user){
         //encoder le mot de passe
@@ -66,14 +85,6 @@ public class UserController {
 
 
     //Récupérer l'utilisateur connecté
-
-    @GetMapping (value = "/test")
-    public String getUser (Model model, Authentication authentication){
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        model.addAttribute("user", userDetails);
-        return "Hello";
-    }
-
     @GetMapping(value = "/viewutilisateur")
     public String viewPret (Model model){
         model.addAttribute("titremodif", "Modification du profil");
@@ -100,7 +111,16 @@ public class UserController {
         return "redirect:/compte/liste";
     }
 
-    //Modifier un user
+    //recevoir les données d'un user
+    @GetMapping(value = "/user/{id}")
+    public String userForm(@PathVariable Long id, Model model){
+
+        model.addAttribute("titremodif", "Modifier le compte");
+        model.addAttribute("user", userService.getUserById(id));
+        return "adminaccueil";
+    }
+
+    //Modifier un user par l'admin
     @PostMapping (value = "/modiftheuser")
     public String updateUsers(@PathVariable Long id,
             @ModelAttribute("user") User user,
@@ -122,56 +142,7 @@ public class UserController {
     @GetMapping(value = "/deleteuser/{id}")
     public String deleteUser(@PathVariable long id){
         userService.deleteUserById(id);
-        return "redirect:/compte/listeuser";
+        return "redirect:/admin/listeuser";
     }
-
-
-    //Avoir la liste des livres dans un tableau
-    @GetMapping (value = "/liste")
-    public String getLivre(Model model){
-        model.addAttribute("something", "Pour connaitre les livres");
-        log.info("direction page de liste de livre");
-        model.addAttribute("livre", livreService.getAllLivres());
-        return "adminaccueil";
-    }
-
-
-    //recevoir les données d'un user
-    @GetMapping(value = "/user/{id}")
-    public String userForm(@PathVariable Long id, Model model){
-
-        model.addAttribute("titremodif", "Modifier le compte");
-        model.addAttribute("user", userService.getUserById(id));
-        return "adminaccueil";
-    }
-
-    // Pret de livre
-    @GetMapping (value = "pret/{id}")
-    public String pretLivre (@PathVariable Long id, Model model){
-
-        model.addAttribute("livre", livreService.getLivreById(id));
-
-        return "userpret";
-    }
-
-
-
-
-    //Récupérer les prets d'un utilisateur
-    /*@GetMapping (value = "/mesprets")
-    public String viewMesPrets ( @PathVariable Long id, Model model){
-        User user = userService.getCurrentUser();
-        //Pret pret = pretService.getUserPret(userId);
-        return null;
-    } */
-
-    /* @GetMapping(value = "/user/edit/{id}")
-    public String editUserForm(@PathVariable Long id, Model model){
-
-        model.addAttribute("titremodif", "Modifier le compte");
-        model.addAttribute("user", userService.getUserById(id));
-        return "usermodif";
-    } */
-
 
 }

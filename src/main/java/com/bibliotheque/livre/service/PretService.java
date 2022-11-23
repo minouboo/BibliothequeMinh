@@ -22,7 +22,7 @@ public interface PretService {
     //pour supprimer un Pret
     void deletePretById (long id);
 
-    //List<Pret> getUserPret(Long userId);
+    List<Pret> getUserPret(Long userId);
 
 
 

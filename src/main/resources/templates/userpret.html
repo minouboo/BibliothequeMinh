@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse " id="navbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <li class="nav-item">
-                    <a class="nav-link" id="onglet" th:href = "@{/admin/liste}">Parcourir la bibliothèque</a>
+                    <a class="nav-link" id="onglet" th:href = "@{/compte/liste}">Parcourir la bibliothèque</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Consulter mes prêts</a>
@@ -32,18 +32,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/admin/listeuser}" sec:authorize = "hasRole('ROLE_ADMIN')">Liste des utilisateurs</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newlangue}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter une langue</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"  th:href = "@{/admin/newediteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un éditeur</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newgenre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un genre</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/admin/newauteur}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un auteur</a>
                 </li>
             </ul>
         </div>
@@ -95,33 +83,38 @@
                         <li th:text="${auteur.nom}"></li>
                     </ul>
                 </div>
+                <div class = "card-body">
+                    <h5>Exemplaires dispo </h5>
+                    <ul th:each="exemplaire : ${exemplaires}">
+                        <li th:text="${exemplaire.codeBarre}"></li>
+                    </ul>
+                </div>
             </div>
 
             <div class = "col-lg-3 col-md-3 col-sm-3 container justify-content-center card">
                 <div class = "card-body">
+                    <form th:action = "@{/pret/newpret}" th:object = "${pret}" method = "POST">
 
-                    <form th:action = "@{/admin/newexemplaire}" th:object = "${exemplaire}" method = "POST">
-
-                        <div class = "form-group">
-                            <label>Id du livre</label>
-                            <input
-                                    class = "form-control"
-                                    type = "text"
-                                    name = "id du livre"
-
-                                    placeholder="Ajouter un code barre"
-                            />
+                        <div class = "form-group row">
+                            <label>Exemplaire du livre</label>
+                            <select th:field="*{exemplaireId}">
+                                <option th:each= "e:${exemplaires}" th:value="${e.id}" th:text="${e.codeBarre}">
+                                </option>
+                            </select>
                         </div>
 
-                        <div class = "form-group">
-                            <label>Code barre</label>
-                            <input
-                                    class = "form-control"
-                                    type = "text"
-                                    name = "code barre"
+                        <div class="form-group row">
+                            <label>Date de début</label>
+                            <div class="input-group date">
+                                <input type="date" class="form-control" th:field="*{dateDeDebut}"/>
+                            </div>
+                        </div>
 
-                                    placeholder="Ajouter un code barre"
-                            />
+                        <div class="form-group row">
+                            <label>Date de fin</label>
+                            <div class="input-group date">
+                                <input type="date" class="form-control" th:field="*{dateDeFinSouhaitee}"/>
+                            </div>
                         </div>
 
                         <div class = "box-footer">
@@ -129,9 +122,7 @@
                                 Submit
                             </button>
                         </div>
-
                     </form>
-
                 </div>
             </div>
 

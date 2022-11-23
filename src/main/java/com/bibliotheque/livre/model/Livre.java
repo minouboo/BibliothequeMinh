@@ -64,7 +64,6 @@ public class Livre {
     private Genre genre;
 
     @OneToMany (mappedBy = "livre")
-
     private Set<Exemplaire> exemplaires = new HashSet<>();
 
 

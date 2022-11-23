@@ -35,10 +35,11 @@ public class LivreForm {
 
     private List<Long> auteursId = new ArrayList<>();
 
-
-
     @DateTimeFormat (pattern = "yyyy-MM-dd")
     private Date dateDePublication;
+
+    @NotBlank (message = "description is mandatory")
+    private String description = "";
 
 
 

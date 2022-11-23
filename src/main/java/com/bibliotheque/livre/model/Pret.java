@@ -2,6 +2,7 @@ package com.bibliotheque.livre.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -11,7 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
 @Getter
 @Setter
 @Builder
@@ -24,13 +24,17 @@ public class Pret {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Basic
-    @Column
-    private Date date_debut;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_debut")
+    private Date dateDeDebut;
 
-    @Basic
-    @Column
-    private Date date_fin;
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    @Column(name = "date_fin")
+    private Date dateDeFin;
+
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    @Column(name = "date_fin_souhaitee")
+    private Date dateDeFinSouhaitee;
 
     @Column(columnDefinition = "boolean default false" ,name = "renouvele")
     private Boolean renouvele = false;

@@ -26,10 +26,10 @@
                     <a class="nav-link" id="onglet" th:href = "@{/compte/liste}">Parcourir la bibliothèque</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   href="Acceuil.html">Consulter mes prêts</a>
+                    <a class="nav-link " id="onglet" aria-current="page" th:href = "@{/compte/mesprets}">Consulter mes prêts</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link " id="onglet" aria-current="page"   th:href = "@{/compte/viewutilisateur}">Modifier mon profil</a>
+                    <a class="nav-link " id="onglet" aria-current="page" th:href = "@{/compte/viewutilisateur}">Modifier mon profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="onglet" th:href = "@{/admin/newlivre}" sec:authorize = "hasRole('ROLE_ADMIN')">Ajouter un livre</a>
@@ -108,7 +108,7 @@
                    sec:authorize = "hasRole('ROLE_ADMIN')"
                 >Supprimer</a>
 
-                <a th:href="@{/compte/pret/{id}(id=${livre.id})}"
+                <a th:href="@{/pret/info/{id}(id=${livre.id})}"
                    class = "btn btn-primary" >Prêt</a>
             </td>
 

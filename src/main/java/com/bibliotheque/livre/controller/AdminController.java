@@ -1,5 +1,6 @@
 package com.bibliotheque.livre.controller;
 
+import com.bibliotheque.livre.data.DescriptionRepository;
 import com.bibliotheque.livre.data.LivreRepository;
 import com.bibliotheque.livre.form.ExemplaireForm;
 import com.bibliotheque.livre.form.LivreForm;
@@ -19,12 +20,11 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
-import java.util.Set;
 
 
 @Log
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-/*@AllArgsConstructor*/
+//@AllArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
 @Controller
 @RequestMapping(value="admin") // This means URL's start with /demo (after Application path)
@@ -39,14 +39,14 @@ public class AdminController {
     private EditeurService editeurService;
     private GenreService genreService;
     private UserService userService;
-
     private ExemplaireService exemplaireService;
-
     private LivreRepository livreRepository;
+
+    private DescriptionRepository descriptionRepository;
 
 
     @Autowired
-    public AdminController(LivreService livreService, LangueService langueService, AuteurService auteurService, EditeurService editeurService, GenreService genreService, UserService userService, ExemplaireService exemplaireService, LivreRepository livreRepository) {
+    public AdminController(LivreService livreService, LangueService langueService, AuteurService auteurService, EditeurService editeurService, GenreService genreService, UserService userService, ExemplaireService exemplaireService, LivreRepository livreRepository, DescriptionRepository descriptionRepository) {
         this.livreService = livreService;
         this.langueService = langueService;
         this.auteurService = auteurService;
@@ -55,14 +55,13 @@ public class AdminController {
         this.userService = userService;
         this.exemplaireService = exemplaireService;
         this.livreRepository = livreRepository;
+        this.descriptionRepository = descriptionRepository;
     }
 
 
     //Avoir la liste des users dans un tableau
     @GetMapping(value = "/listeuser")
     public String getUser(Model model){
-
-        log.info("direction page de liste users");
         model.addAttribute("user", userService.getAllUser());
         return "adminlisteusers";
     }
@@ -111,6 +110,11 @@ public class AdminController {
     @PostMapping (value = "/livres")
     public String saveLivre( @Valid @ModelAttribute("livre") LivreForm livre) {
         Livre l = new Livre();
+        Description d = new Description();
+        d.setTitre("titre");
+        d = descriptionRepository.save(d);
+
+        l.setDescription(d);
         l.setIsbn(livre.getIsbn());
         l.setTitre(livre.getTitre());
         l.setDateDePublication(livre.getDateDePublication());
@@ -129,14 +133,11 @@ public class AdminController {
         l.setLangue(langue);
         l.setEditeur(editeur);
         l.setGenre(genre);
-
-        //Exemplaire exemplaire = exemplaireService.saveExemplaire(new Exemplaire());
-        //l.setExemplaires((Set<Exemplaire>) exemplaire);
-
+        livreService.convertToParagraphes(livre.getDescription(),d);
+        descriptionRepository.save(d);
         livreService.saveLivre(l);
         return"redirect:/admin/liste";
     }
-
 
     //Modifier un livre
     @GetMapping( value = "/livres/edit/{id}")
@@ -144,17 +145,25 @@ public class AdminController {
 
         model.addAttribute("titre", "Modifier un livre");
 
-        //ajout de l'attribut en liste
+        //données du livre à modifier
         model.addAttribute("langues", langueService.getAllLangues());
         model.addAttribute("editeurs", editeurService.getAllEditeurs());
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("auteurs", auteurService.getAllAuteur());
-
-        //LivreForm livremodif = new LivreForm();
         model.addAttribute("livre", livreService.getLivreById(id));
 
+        //données de l'exemplaire à ajouter
+        model.addAttribute("titreajout", "Ajouter un exemplaire");
         ExemplaireForm exemplaire = new ExemplaireForm();
         model.addAttribute("exemplaire", exemplaire);
+
+        //Lister les exemplaires d'un livre
+        model.addAttribute("titreexemplaireexistant", "Exemplaire existant");
+        model.addAttribute("listeexemplaire", exemplaireService.getExemplaireDispoLivre(id));
+
+        //suppression d'un exemplaire
+        model.addAttribute("titresup", "Supprimer un exemplaire");
+        model.addAttribute("exemplaires", exemplaireService.getAllExemplaire());
 
         return "adminmodifLivre";
     }
@@ -182,16 +191,19 @@ public class AdminController {
     @PostMapping(value = "/newexemplaire")
     public String addExemplaire (@Valid @ModelAttribute("exemplaire") ExemplaireForm exemplaire){
         Exemplaire e = new Exemplaire();
-        e.setCodeBarre(exemplaire.getCodeBarre());
         Livre livre = livreService.findLivreById(exemplaire.getLivreId());
         e.setLivre(livre);
+        e.setCodeBarre(exemplaire.getCodeBarre());
         exemplaireService.saveExemplaire(e);
         return "redirect:/admin/liste" ;
     }
 
-
-
-
+    // supprimer un exemplaire
+    @GetMapping(value = "/exemplaire/{id}")
+    public String deleteExemplaire(@PathVariable Long id){
+        exemplaireService.deleteExemplaireById(id);
+        return "redirect:/admin/liste";
+    }
 
     // supprimer le livre
     @GetMapping(value = "/livres/{id}")
@@ -235,11 +247,6 @@ public class AdminController {
         // model.addAttribute("livre", livreRepository.findLivresBySF());
         return "adminaccueil";
     }
-
-
-
-
-
 
 
 }
