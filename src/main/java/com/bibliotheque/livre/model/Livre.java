@@ -54,10 +54,6 @@ public class Livre {
             inverseJoinColumns = @JoinColumn (name = "livre_id"))
             private Set<Auteur> auteurs = new HashSet<>();
 
-    /*@ManyToOne
-    @JoinColumn (name="auteur_id")
-    private Auteur auteur; */
-
 
     @ManyToOne
     @JoinColumn (name="genre_id")

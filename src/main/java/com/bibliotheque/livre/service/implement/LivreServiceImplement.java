@@ -1,6 +1,7 @@
 package com.bibliotheque.livre.service.implement;
 
 import com.bibliotheque.livre.data.LivreRepository;
+import com.bibliotheque.livre.data.ParagrapheRepository;
 import com.bibliotheque.livre.model.Description;
 import com.bibliotheque.livre.model.Livre;
 import com.bibliotheque.livre.model.Paragraphe;
@@ -8,17 +9,18 @@ import com.bibliotheque.livre.service.LivreService;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class LivreServiceImplement implements LivreService {
 
     private LivreRepository livreRepository;
+    private ParagrapheRepository paragrapheRepository;
 
-    public LivreServiceImplement(LivreRepository livreRepository) {
+    public LivreServiceImplement(LivreRepository livreRepository, ParagrapheRepository paragrapheRepository) {
         super();
         this.livreRepository = livreRepository;
+        this.paragrapheRepository = paragrapheRepository;
     }
 
     //methode pour avoir une liste de livre
@@ -57,14 +59,18 @@ public class LivreServiceImplement implements LivreService {
 
     @Override
     public void convertToParagraphes(String texte, Description description) {
+
+        // Split le texte en tableau de paragraphe
         String [] tab = texte.split("\\r\\n");
 
         int i =0;
-        for ( String line:tab){
+
+        for ( String line : tab){
             Paragraphe p = new Paragraphe();
             p.setTexte(line);
             p.setOrdre(i++);
             p.setDescription(description);
+            //paragrapheRepository.save(p);
             description.getParagraphes().add(p);
 
         }

@@ -110,19 +110,19 @@ public class AdminController {
     @PostMapping (value = "/livres")
     public String saveLivre( @Valid @ModelAttribute("livre") LivreForm livre) {
         Livre l = new Livre();
-        Description d = new Description();
-        d.setTitre("titre");
-        d = descriptionRepository.save(d);
 
-        l.setDescription(d);
         l.setIsbn(livre.getIsbn());
         l.setTitre(livre.getTitre());
-        l.setDateDePublication(livre.getDateDePublication());
-
 
         Langue langue = langueService.findLangueById(livre.getLangueId());
+        l.setLangue(langue);
+
         Editeur editeur = editeurService.findEditeurById(livre.getEditeurId());
+        l.setEditeur(editeur);
+
         Genre genre = genreService.findGenreById(livre.getGenreId());
+        l.setGenre(genre);
+
         for (Long id:livre.getAuteursId()
              ) {
             Auteur auteur = auteurService.findAuteurById(id);
@@ -130,12 +130,22 @@ public class AdminController {
                 l.getAuteurs().add(auteur);
             }
         };
-        l.setLangue(langue);
-        l.setEditeur(editeur);
-        l.setGenre(genre);
-        livreService.convertToParagraphes(livre.getDescription(),d);
+
+        l.setDateDePublication(livre.getDateDePublication());
+
+        //Paragraphe p = new Paragraphe();
+        //p.setTexte(livre.getDescription());
+
+        Description d = new Description();
+        d.setTitre(livre.getTitre());
+        livreService.convertToParagraphes(livre.getParagraphe(),d);
+        //d = descriptionRepository.save(d);
+
+        l.setDescription(d);
         descriptionRepository.save(d);
+
         livreService.saveLivre(l);
+
         return"redirect:/admin/liste";
     }
 

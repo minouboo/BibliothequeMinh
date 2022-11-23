@@ -38,8 +38,8 @@ public class LivreForm {
     @DateTimeFormat (pattern = "yyyy-MM-dd")
     private Date dateDePublication;
 
-    @NotBlank (message = "description is mandatory")
-    private String description = "";
+    @NotBlank (message = "A description is mandatory")
+    private String paragraphe = "";
 
 
 
