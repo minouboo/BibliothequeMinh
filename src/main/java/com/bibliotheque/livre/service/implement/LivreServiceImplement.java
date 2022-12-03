@@ -6,6 +6,7 @@ import com.bibliotheque.livre.model.Description;
 import com.bibliotheque.livre.model.Livre;
 import com.bibliotheque.livre.model.Paragraphe;
 import com.bibliotheque.livre.service.LivreService;
+import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.stereotype.Service;
 
@@ -60,17 +61,24 @@ public class LivreServiceImplement implements LivreService {
     @Override
     public void convertToParagraphes(String texte, Description description) {
 
-        // Split le texte en tableau de paragraphe
-        String [] tab = texte.split("\\r\\n");
+        //StringUtils gere les nuls et les blancs (espaces)
+        if(StringUtils.isBlank(texte) || description == null)
+            return ;
 
+        String tmp = texte.replaceAll("\\r","");
+        // Split le texte en tableau de paragraphe
+        String [] tab = tmp.split("\\n");
+
+        //pour initialiser l'ordre des paragraphes
         int i =0;
 
+        // boucles pour chaques paragraphes,creation d'un objet paragraphe
         for ( String line : tab){
             Paragraphe p = new Paragraphe();
             p.setTexte(line);
             p.setOrdre(i++);
             p.setDescription(description);
-            //paragrapheRepository.save(p);
+            //p = paragrapheRepository.save(p);
             description.getParagraphes().add(p);
 
         }

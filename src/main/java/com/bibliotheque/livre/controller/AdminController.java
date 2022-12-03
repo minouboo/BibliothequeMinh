@@ -139,7 +139,7 @@ public class AdminController {
         Description d = new Description();
         d.setTitre(livre.getTitre());
         livreService.convertToParagraphes(livre.getParagraphe(),d);
-        //d = descriptionRepository.save(d);
+        d = descriptionRepository.save(d);
 
         l.setDescription(d);
         descriptionRepository.save(d);

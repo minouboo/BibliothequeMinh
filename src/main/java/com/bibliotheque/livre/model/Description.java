@@ -27,7 +27,7 @@ public class Description {
     @Column
     private String titre;
 
-    @OneToMany (mappedBy = "description")
+    @OneToMany (mappedBy = "description" , cascade = CascadeType.ALL)
     private List<Paragraphe> paragraphes = new ArrayList<>();
 
 
